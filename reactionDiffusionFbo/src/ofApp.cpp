@@ -2,25 +2,27 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofEnableSmoothing();
     restartButton.addListener(this, &ofApp::restartButtonPressed);
     if (!ofIsGLProgrammableRenderer()) {
         ofLogError("this app supports only open the programmable render pipeline");
         return 1;
     } else {
-         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
+        shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
     };
-    //image.load("img.jpg");
-    output.allocate(256, 256);
-    pingPong.allocate(256, 256);
+    image.load("img.jpg");
+    output.allocate(image.getWidth(), image.getHeight(), GL_RGBA);
+    pingPong.allocate(image.getWidth(), image.getHeight(), GL_RGBA);
 
+    pingPong.src->begin();
+    ofClear(0, 0, 0, 255);
+    image.draw(0,0, 256, 256);
+    pingPong.src->end();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     pingPong.dst->begin();
-
-    ofClear(0,0,0,255);
-    //image.getTexture().bind();
     shader.begin();
     shader.setUniformTexture("prevBuffer", pingPong.src->getTexture(), 0);
     shader.setUniformTexture("prevTexture", output, 1);
@@ -28,36 +30,33 @@ void ofApp::update(){
     shader.setUniform1f( "rv", (float)rv);
     shader.setUniform1f( "f", (float)f );
     shader.setUniform1f( "k", (float)k );
-
-    ofRect(0,0,10,10);
-    ofRect(100,160,10,10);
+    ofRect(0,0,256, 256);
     shader.end();
-    //image.getTexture().unbind();
     pingPong.dst->end();
     pingPong.swap();
 
 
-//    for( int i = 0; i < 5 ; i++ ){
-//        pingPong.dst->begin();
-//        ofClear(0,0,0,255);
-//        // bind the texture
-//        image.getTexture().bind();
-//        shader.begin();
-//        shader.setUniformTexture("prevTexture", pingPong.src->getTexture(), 0);
-//        shader.setUniformTexture("srcTexture", output, 1);
-//        shader.setUniform1f( "ru", (float)ru);
-//        shader.setUniform1f( "rv", (float)rv);
-//        shader.setUniform1f( "f", (float)f );
-//        shader.setUniform1f( "k", (float)k );
-//        shader.end();
-//        //unbind the texture
-//        image.getTexture().unbind();
-//
-//        pingPong.dst->end();
-//        pingPong.swap();
-//    }
-//
-//    pingPong.swap();
+    //    for( int i = 0; i < 5 ; i++ ){
+    //        pingPong.dst->begin();
+    //        ofClear(0,0,0,255);
+    //        // bind the texture
+    //        image.getTexture().bind();
+    //        shader.begin();
+    //        shader.setUniformTexture("prevTexture", pingPong.src->getTexture(), 0);
+    //        shader.setUniformTexture("srcTexture", output, 1);
+    //        shader.setUniform1f( "ru", (float)ru);
+    //        shader.setUniform1f( "rv", (float)rv);
+    //        shader.setUniform1f( "f", (float)f );
+    //        shader.setUniform1f( "k", (float)k );
+    //        shader.end();
+    //        //unbind the texture
+    //        image.getTexture().unbind();
+    //
+    //        pingPong.dst->end();
+    //        pingPong.swap();
+    //    }
+    //
+    //    pingPong.swap();
 }
 
 //--------------------------------------------------------------
