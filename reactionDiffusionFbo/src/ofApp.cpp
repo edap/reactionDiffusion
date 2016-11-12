@@ -13,24 +13,26 @@ void ofApp::setup(){
     image.load("img.jpg");
     output.allocate(image.getWidth(), image.getHeight(), GL_RGBA);
     pingPong.allocate(image.getWidth(), image.getHeight(), GL_RGBA);
-
+    pingPong.clear();
     pingPong.src->begin();
-    ofClear(0, 0, 0, 255);
-    image.draw(0,0, 256, 256);
+    image.draw(0,0, width, height);
     pingPong.src->end();
+
+    output.begin();
+    ofClear(0, 0, 0, 255);
+    output.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     pingPong.dst->begin();
     shader.begin();
-    shader.setUniformTexture("prevBuffer", pingPong.src->getTexture(), 0);
-    shader.setUniformTexture("prevTexture", output, 1);
+    shader.setUniformTexture("prevTexture", output.getTexture(), 1);
     shader.setUniform1f( "ru", (float)ru);
     shader.setUniform1f( "rv", (float)rv);
     shader.setUniform1f( "f", (float)f );
     shader.setUniform1f( "k", (float)k );
-    ofRect(0,0,256, 256);
+    pingPong.src->draw(0, 0); // draw the source texture here!!!
     shader.end();
     pingPong.dst->end();
     pingPong.swap();
@@ -67,7 +69,7 @@ void ofApp::draw(){
 // GUI
 void ofApp::addGui(){
     gui.setup();
-    gui.setPosition(ofPoint(gridWidth, 0));
+    gui.setPosition(ofPoint(width, 0));
     gui.add(dA.setup("dA", 1.0, 0.050, 1.0));
     gui.add(dB.setup("dB", 0.5, 0.050, 1.0));
     gui.add(feed.setup("feed", 0.055, 0.018, 0.060));
@@ -84,12 +86,12 @@ void ofApp::maybeDrawGui(){
         ofPushStyle();
         //fps
         string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
-        ofDrawBitmapString(msg, gridWidth, gui.getHeight());
+        ofDrawBitmapString(msg, width, gui.getHeight());
         // file selection
         for (unsigned i = 0; i < fileNames.size(); ++i){
             if (i == selected) ofSetColor(0, 255, 0);
             else ofSetColor(255, 0, 0);
-            ofDrawBitmapString(fileNames[i], gridWidth, (gui.getHeight()+20)
+            ofDrawBitmapString(fileNames[i], width, (gui.getHeight()+20)
                                +(20 * (i + 1)));
         }
         ofPopStyle();

@@ -72,8 +72,8 @@ public:
     void readFilesDirectory();
     void restartButtonPressed();
     bool hideGui = true;
-    int gridWidth = 512;
-    int gridHeight = 512;
+    int width = 256;
+    int height = 256;
 
     ofxFloatSlider dA;
     ofxFloatSlider dB;
