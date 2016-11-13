@@ -2,6 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    width = ofGetWidth();
+    height = ofGetHeight();
+    readFilesDirectory();
     ofEnableSmoothing();
     restartButton.addListener(this, &ofApp::restartButtonPressed);
     if (!ofIsGLProgrammableRenderer()) {
@@ -10,17 +13,26 @@ void ofApp::setup(){
     } else {
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
     };
-    image.load("img.jpg");
-    output.allocate(image.getWidth(), image.getHeight(), GL_RGBA);
-    pingPong.allocate(image.getWidth(), image.getHeight(), GL_RGBA);
+    // to use an image as source instead the mouse click, uncomment this:
+    // image.load("img.jpg");
+    // width = image.getWidth();
+    // height = image.getHeight();
+    // output.allocate(width, height, GL_RGBA);
+    // pingPong.allocate(width, height, GL_RGBA);
+
+    output.allocate(width, height, GL_RGBA);
+    pingPong.allocate(width, height, GL_RGBA);
     pingPong.clear();
     pingPong.src->begin();
-    image.draw(0,0, width, height);
+    // uncomment this to use an image as source
+    //image.draw(0,0, width, height);
     pingPong.src->end();
 
     output.begin();
     ofClear(0, 0, 0, 255);
     output.end();
+
+    addGui();
 }
 
 //--------------------------------------------------------------
@@ -65,12 +77,13 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     pingPong.src->draw(0,0);
+    maybeDrawGui();
 }
 
 // GUI
 void ofApp::addGui(){
     gui.setup();
-    gui.setPosition(ofPoint(width, 0));
+    gui.setPosition(ofPoint(0, 30));
     gui.add(dA.setup("dA", 1.0, 0.050, 1.0));
     gui.add(dB.setup("dB", 0.5, 0.050, 1.0));
     gui.add(feed.setup("feed", 0.055, 0.018, 0.060));
@@ -85,14 +98,16 @@ void ofApp::maybeDrawGui(){
     if(!hideGui){
         gui.draw();
         ofPushStyle();
+        string displayGui = "press 'g' to toggle the gui, up and down to change presets";
+        ofDrawBitmapString(displayGui, 0, 10);
         //fps
         string msg = "\n\nfps: " + ofToString(ofGetFrameRate(), 2);
-        ofDrawBitmapString(msg, width, gui.getHeight());
+        ofDrawBitmapString(msg, 0, 0);
         // file selection
         for (unsigned i = 0; i < fileNames.size(); ++i){
             if (i == selected) ofSetColor(0, 255, 0);
-            else ofSetColor(255, 0, 0);
-            ofDrawBitmapString(fileNames[i], width, (gui.getHeight()+20)
+            else ofSetColor(0, 0, 255);
+            ofDrawBitmapString(fileNames[i], 0, (gui.getHeight()+20)
                                +(20 * (i + 1)));
         }
         ofPopStyle();

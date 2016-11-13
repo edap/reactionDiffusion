@@ -71,9 +71,9 @@ public:
     void addGui();
     void readFilesDirectory();
     void restartButtonPressed();
-    bool hideGui = true;
-    int width = 256;
-    int height = 256;
+    bool hideGui = false;
+    int width;
+    int height;
 
     ofxFloatSlider dA;
     ofxFloatSlider dB;
