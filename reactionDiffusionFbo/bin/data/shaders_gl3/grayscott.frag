@@ -1,3 +1,8 @@
+// This shader comes from https://github.com/patriciogonzalezvivo/ofxFX/blob/master/src/generative/ofxGrayScott.h
+// And it applies the same license riported in that file
+
+
+
 #version 150
 #define KERNEL_SIZE 9
 
