@@ -54,6 +54,7 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+    void clearBuffersAndAllocate();
     void maybeDrawGui();
 
     ofFbo output;
@@ -62,12 +63,6 @@ public:
     string shadersFolder = "shaders_gl3";
     ofImage image;
 
-    float ru = 0.25f;
-    float f = 0.0195f;
-    float rv = 0.04f;
-    float k = 0.066f;
-
-    //GUI, not implemented yet
     void addGui();
     void readFilesDirectory();
     void restartButtonPressed();
@@ -75,10 +70,10 @@ public:
     int width;
     int height;
 
-    ofxFloatSlider dA;
-    ofxFloatSlider dB;
-    ofxFloatSlider feed;
-    //ofxFloatSlider k;
+    ofxFloatSlider ru;
+    ofxFloatSlider rv;
+    ofxFloatSlider f;
+    ofxFloatSlider k;
 
     ofxIntSlider bAmount;
     ofxButton restartButton;

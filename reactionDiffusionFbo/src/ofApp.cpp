@@ -13,25 +13,7 @@ void ofApp::setup(){
     } else {
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
     };
-    // to use an image as source instead the mouse click, uncomment this:
-    // image.load("img.jpg");
-    // width = image.getWidth();
-    // height = image.getHeight();
-    // output.allocate(width, height, GL_RGBA);
-    // pingPong.allocate(width, height, GL_RGBA);
-
-    output.allocate(width, height, GL_RGBA);
-    pingPong.allocate(width, height, GL_RGBA);
-    pingPong.clear();
-    pingPong.src->begin();
-    // uncomment this to use an image as source
-    //image.draw(0,0, width, height);
-    pingPong.src->end();
-
-    output.begin();
-    ofClear(0, 0, 0, 255);
-    output.end();
-
+    clearBuffersAndAllocate();
     addGui();
 }
 
@@ -41,10 +23,10 @@ void ofApp::update(){
     shader.begin();
     shader.setUniformTexture("prevTexture", pingPong.src->getTexture(), 0 );
     shader.setUniformTexture("tex0", output.getTexture(), 1 );
-    shader.setUniform1f( "ru", (float)ru);
-    shader.setUniform1f( "rv", (float)rv);
-    shader.setUniform1f( "f", (float)f );
-    shader.setUniform1f( "k", (float)k );
+    shader.setUniform1f( "ru", ru);
+    shader.setUniform1f( "rv", rv);
+    shader.setUniform1f( "f", f );
+    shader.setUniform1f( "k", k );
     pingPong.src->draw(0, 0); // draw the source texture here!!!
     shader.end();
     pingPong.dst->end();
@@ -80,14 +62,36 @@ void ofApp::draw(){
     maybeDrawGui();
 }
 
+void ofApp::clearBuffersAndAllocate(){
+        // to use an image as source instead the mouse click, uncomment this:
+    // image.load("img.jpg");
+    // width = image.getWidth();
+    // height = image.getHeight();
+    // output.allocate(width, height, GL_RGBA);
+    // pingPong.allocate(width, height, GL_RGBA);
+
+    output.allocate(width, height, GL_RGBA);
+    pingPong.allocate(width, height, GL_RGBA);
+    pingPong.clear();
+    pingPong.src->begin();
+    // uncomment this to use an image as source
+    //image.draw(0,0, width, height);
+    pingPong.src->end();
+
+    output.begin();
+    ofClear(0, 0, 0, 255);
+    output.end();
+
+}
+
 // GUI
 void ofApp::addGui(){
     gui.setup();
     gui.setPosition(ofPoint(0, 30));
-    gui.add(dA.setup("dA", 1.0, 0.050, 1.0));
-    gui.add(dB.setup("dB", 0.5, 0.050, 1.0));
-    gui.add(feed.setup("feed", 0.055, 0.018, 0.060));
-    //gui.add(k.setup("k", 0.062, 0.050, 0.070));
+    gui.add(ru.setup("ru", 0.25, 0.09, 0.26));
+    gui.add(rv.setup("rv", 0.04, 0.04, 0.16));
+    gui.add(f.setup("feed", 0.0195, 0.018, 0.060));
+    gui.add(k.setup("k", 0.066, 0.050, 0.070));
 
 
     gui.add(bAmount.setup("Chemicak B amount", 20, 10, 300));
@@ -115,7 +119,7 @@ void ofApp::maybeDrawGui(){
 }
 
 void ofApp::restartButtonPressed(){
-
+    clearBuffersAndAllocate();
 }
 
 void ofApp::readFilesDirectory(){
