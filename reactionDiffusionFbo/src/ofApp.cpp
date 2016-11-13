@@ -19,41 +19,21 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    pingPong.dst->begin();
-    shader.begin();
-    shader.setUniformTexture("prevTexture", pingPong.src->getTexture(), 0 );
-    shader.setUniformTexture("tex0", output.getTexture(), 1 );
-    shader.setUniform1f( "ru", ru);
-    shader.setUniform1f( "rv", rv);
-    shader.setUniform1f( "f", f );
-    shader.setUniform1f( "k", k );
-    pingPong.src->draw(0, 0); // draw the source texture here!!!
-    shader.end();
-    pingPong.dst->end();
+    for( int i = 0; i < nPasses ; i++ ){
+        pingPong.dst->begin();
+        shader.begin();
+        shader.setUniformTexture("prevTexture", pingPong.src->getTexture(), 0 );
+        shader.setUniformTexture("tex0", output.getTexture(), 1 );
+        shader.setUniform1f( "ru", ru);
+        shader.setUniform1f( "rv", rv);
+        shader.setUniform1f( "f", f );
+        shader.setUniform1f( "k", k );
+        pingPong.src->draw(0, 0); // draw the source texture here!!!
+        shader.end();
+        pingPong.dst->end();
+        pingPong.swap();
+    }
     pingPong.swap();
-
-
-    //    for( int i = 0; i < 5 ; i++ ){
-    //        pingPong.dst->begin();
-    //        ofClear(0,0,0,255);
-    //        // bind the texture
-    //        image.getTexture().bind();
-    //        shader.begin();
-    //        shader.setUniformTexture("prevTexture", pingPong.src->getTexture(), 0);
-    //        shader.setUniformTexture("srcTexture", output, 1);
-    //        shader.setUniform1f( "ru", (float)ru);
-    //        shader.setUniform1f( "rv", (float)rv);
-    //        shader.setUniform1f( "f", (float)f );
-    //        shader.setUniform1f( "k", (float)k );
-    //        shader.end();
-    //        //unbind the texture
-    //        image.getTexture().unbind();
-    //
-    //        pingPong.dst->end();
-    //        pingPong.swap();
-    //    }
-    //
-    //    pingPong.swap();
 }
 
 //--------------------------------------------------------------
@@ -63,7 +43,7 @@ void ofApp::draw(){
 }
 
 void ofApp::clearBuffersAndAllocate(){
-        // to use an image as source instead the mouse click, uncomment this:
+    // to use an image as source instead the mouse click, uncomment this:
     // image.load("img.jpg");
     // width = image.getWidth();
     // height = image.getHeight();
@@ -94,7 +74,7 @@ void ofApp::addGui(){
     gui.add(k.setup("k", 0.066, 0.050, 0.070));
 
 
-    gui.add(bAmount.setup("Chemicak B amount", 20, 10, 300));
+    gui.add(nPasses.setup("passes", 10, 1, 30));
     gui.add(restartButton.setup("restart"));
 }
 
