@@ -27,7 +27,8 @@ void ofApp::setup(){
 void ofApp::update(){
     pingPong.dst->begin();
     shader.begin();
-    shader.setUniformTexture("prevTexture", output.getTexture(), 1);
+    shader.setUniformTexture("prevTexture", pingPong.src->getTexture(), 0 );
+    shader.setUniformTexture("tex0", output.getTexture(), 1 );
     shader.setUniform1f( "ru", (float)ru);
     shader.setUniform1f( "rv", (float)rv);
     shader.setUniform1f( "f", (float)f );

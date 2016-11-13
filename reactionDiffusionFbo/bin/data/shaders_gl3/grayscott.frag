@@ -38,13 +38,13 @@ void main(void)
     offset[7] = vec2(  0.0, 1.0);
     offset[8] = vec2(  1.0, 1.0);
 
-    vec2 texColor      = texture(tex0, vTexCoord).rb;
-    float srcTexColor   = texture( prevTexture, vTexCoord ).r;
+    vec2 texColor      = texture(prevTexture, vTexCoord).rb;
+    float srcTexColor  = texture(tex0, vTexCoord ).r;
 
     vec2 laplace        = vec2( 0.0, 0.0 );
 
     for( int i=0; i<KERNEL_SIZE; i++ ){
-        vec2 tmp    = texture( tex0, vTexCoord + offset[i] ).rb;
+        vec2 tmp    = texture( prevTexture, vTexCoord + offset[i] ).rb;
         laplace     += tmp * kernel[i];
     }
 
