@@ -76,6 +76,7 @@ public:
     ofxFloatSlider k;
 
     ofxIntSlider nPasses;
+    ofxIntSlider radius;
     ofxButton restartButton;
     ofxPanel gui;
     vector<string> fileNames;

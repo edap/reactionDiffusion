@@ -33,7 +33,7 @@ void ofApp::update(){
         pingPong.dst->end();
         pingPong.swap();
     }
-    pingPong.swap();
+    //pingPong.swap();
 }
 
 //--------------------------------------------------------------
@@ -73,8 +73,8 @@ void ofApp::addGui(){
     gui.add(f.setup("feed", 0.0195, 0.018, 0.060));
     gui.add(k.setup("k", 0.066, 0.050, 0.070));
 
-
     gui.add(nPasses.setup("passes", 10, 1, 30));
+    gui.add(radius.setup("radius", 10, 3, 50));
     gui.add(restartButton.setup("restart"));
 }
 
@@ -157,7 +157,8 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
     pingPong.src->begin();
     ofSetColor(ofNoise( ofGetElapsedTimef() )*255);
-    ofDrawCircle(x, y, 3);
+    //ofSetColor(0,255,255);
+    ofDrawCircle(x, y, radius);
     pingPong.src->end();
 }
 
