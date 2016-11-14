@@ -1,9 +1,10 @@
+// This shader comes from https://github.com/patriciogonzalezvivo/ofxFX/blob/master/src/generative/ofxGrayScott.h
+// And it applies the same license riported in that file
+
+
+
 #version 150
 #define KERNEL_SIZE 9
-
-in vec4 vPosition;
-in vec3 vNormal;
-in vec2 vTexCoord;
 
 float kernel[KERNEL_SIZE];
 vec2 offset[KERNEL_SIZE];
@@ -15,15 +16,10 @@ uniform float rv;          // rate of diffusion of V
 uniform float f;           // some coupling parameter
 uniform float k;           // another coupling parameter
 
-out vec4 fragColor;
+in vec2 vTexCoord;
+out vec4 vFragColor;
 
-// these are set in the OF app
-//uniform vec3 uLightPosition;
-uniform vec4 uMaterialColor;
-uniform vec3 uLightPosition;
-
-
-vec4 scott(void)
+void main(void)
 {
     kernel[0] = 0.707106781;
     kernel[1] = 1.0;
@@ -68,16 +64,6 @@ vec4 scott(void)
     u += du*0.6;
     v += dv*0.6;
 
-    return vec4( clamp( u, 0.0, 1.0 ), 1.0 - u/v, clamp( v, 0.0, 1.0 ), 1.0 );
-}
-
-void main () {
-    //basic lambertian lighting
-    vec3 lightDirection = normalize(vPosition.xyz - uLightPosition);
-    float dProd = max(0.3, dot(vNormal, lightDirection));
-    vec4 col = vec4( vec3( dProd ) * vec3( uMaterialColor ), 1.0 );
-
-    //fragColor = vec4(vec3(col.rgb), 1.0);
-    fragColor = mix(col, scott(), 0.9);
+    vFragColor = vec4( clamp( u, 0.0, 1.0 ), 1.0 - u/v, clamp( v, 0.0, 1.0 ), 1.0 );
 }
 
