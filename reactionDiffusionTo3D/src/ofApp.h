@@ -86,6 +86,7 @@ public:
     ofxFloatSlider rv;
     ofxFloatSlider f;
     ofxFloatSlider k;
+    ofxIntSlider radius;
     ofParameter<glm::vec3> lightPos;
     ofxColorSlider materialColor;
 

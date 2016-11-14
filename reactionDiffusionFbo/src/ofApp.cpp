@@ -33,7 +33,7 @@ void ofApp::update(){
         pingPong.dst->end();
         pingPong.swap();
     }
-    //pingPong.swap();
+    pingPong.swap();
 }
 
 //--------------------------------------------------------------
@@ -44,9 +44,9 @@ void ofApp::draw(){
 
 void ofApp::clearBuffersAndAllocate(){
     // to use an image as source instead the mouse click, uncomment this:
-    // image.load("img.jpg");
-    // width = image.getWidth();
-    // height = image.getHeight();
+    image.load("img.jpg");
+    width = image.getWidth();
+    height = image.getHeight();
     // output.allocate(width, height, GL_RGBA);
     // pingPong.allocate(width, height, GL_RGBA);
 
@@ -55,13 +55,12 @@ void ofApp::clearBuffersAndAllocate(){
     pingPong.clear();
     pingPong.src->begin();
     // uncomment this to use an image as source
-    //image.draw(0,0, width, height);
+    image.draw(0,0, width, height);
     pingPong.src->end();
 
     output.begin();
     ofClear(0, 0, 0, 255);
     output.end();
-
 }
 
 // GUI
