@@ -69,6 +69,7 @@ public:
     ofFbo output;
     pingPongBuffer pingPong;
     ofShader shader;
+    ofShader updateRender;
     string shadersFolder = "shaders_gl3";
     ofImage image;
     ofSpherePrimitive sphere;

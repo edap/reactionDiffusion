@@ -50,6 +50,8 @@ void ofApp::update(){
         pingPong.swap();
     }
     pingPong.swap();
+
+
 }
 
 //--------------------------------------------------------------
@@ -58,9 +60,11 @@ void ofApp::draw(){
     cam.begin();
     texture.bind();
     plane.mapTexCoordsFromTexture(texture);
-    shader.begin();
+    updateRender.begin();
+    //updateRender.setUniformTexture("scottGrayTex", pingPong.src->getTexture(),0 );
+    // set uniform texture
     plane.draw();
-    shader.end();
+    updateRender.end();
     pingPong.src->getTexture().unbind();
     cam.end();
     maybeDrawGui();
@@ -68,7 +72,7 @@ void ofApp::draw(){
 
 void ofApp::clearBuffersAndAllocate(){
     // to use an image as source instead the mouse click, uncomment this:
-    image.load("img.jpg");
+    image.load("img3.jpg");
     width = image.getWidth();
     height = image.getHeight();
     
@@ -109,7 +113,7 @@ void ofApp::addGui(){
     gui.add(materialColor.setup("material",
                                 ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 
-    gui.add(nPasses.setup("passes", 10, 1, 30));
+    gui.add(nPasses.setup("passes", 4, 1, 30));
     gui.add(radius.setup("radius", 10, 3, 50));
     gui.add(restartButton.setup("restart"));
 }
@@ -186,7 +190,11 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    pingPong.src->begin();
+    ofSetColor(ofNoise( ofGetElapsedTimef() )*255);
+    //ofSetColor(0,255,255);
+    ofDrawCircle(x, y, radius);
+    pingPong.src->end();
 }
 
 //--------------------------------------------------------------
@@ -205,6 +213,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseEntered(int x, int y){
+
 
 }
 
