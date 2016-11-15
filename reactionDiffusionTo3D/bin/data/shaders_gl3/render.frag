@@ -9,7 +9,7 @@ out vec4 vFragColor;
 
 void main() {
     vec4 color = texture(tex0, vTexCoord);
-    if(color.r > 0.9) {
+    if(color.r > 0.28) {
         discard;
     }else{
         vFragColor = texture(tex0, vTexCoord);

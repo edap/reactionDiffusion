@@ -17,7 +17,7 @@ void ofApp::setup(){
     // Plane
     plane.set(640, 480);
     plane.setPosition(0, 0, 0);
-    plane.setResolution(20, 20);
+    plane.setResolution(640, 480);
 
 
     readFilesDirectory();
@@ -27,7 +27,9 @@ void ofApp::setup(){
         ofLogError("this app supports only open the programmable render pipeline");
         return 1;
     } else {
+        //shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
+        updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
     };
     clearBuffersAndAllocate();
     addGui();

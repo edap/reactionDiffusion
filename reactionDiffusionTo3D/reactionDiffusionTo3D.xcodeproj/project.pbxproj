@@ -60,8 +60,8 @@
 		6F5CEE651DD9CF1B00E19AE4 /* passthru.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = passthru.vert; sourceTree = "<group>"; };
 		6F5CEE661DD9CF5A00E19AE4 /* normal.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = normal.vert; sourceTree = "<group>"; };
 		6F5CEE671DD9CF8000E19AE4 /* light.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = light.frag; sourceTree = "<group>"; };
-		6F5CEE6A1DDA0A8A00E19AE4 /* normalGrayScott.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = normalGrayScott.vert; sourceTree = "<group>"; };
-		6F5CEE6B1DDA0AB400E19AE4 /* lightGrayScott.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = lightGrayScott.frag; sourceTree = "<group>"; };
+		6F5CEE701DDA6B4E00E19AE4 /* render.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = render.frag; sourceTree = "<group>"; };
+		6F5CEE781DDB453700E19AE4 /* displacement.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = displacement.vert; sourceTree = "<group>"; };
 		78D67A00EB899FAC09430597 /* ofxLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLabel.cpp; path = ../../../addons/ofxGui/src/ofxLabel.cpp; sourceTree = SOURCE_ROOT; };
 		802251BAF1B35B1D67B32FD0 /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSliderGroup.cpp; path = ../../../addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
 		87F26B4B24CBD428AD9EEBAA /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseGui.h; path = ../../../addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
@@ -117,8 +117,8 @@
 				6F5CEE651DD9CF1B00E19AE4 /* passthru.vert */,
 				6F5CEE661DD9CF5A00E19AE4 /* normal.vert */,
 				6F5CEE671DD9CF8000E19AE4 /* light.frag */,
-				6F5CEE6A1DDA0A8A00E19AE4 /* normalGrayScott.vert */,
-				6F5CEE6B1DDA0AB400E19AE4 /* lightGrayScott.frag */,
+				6F5CEE701DDA6B4E00E19AE4 /* render.frag */,
+				6F5CEE781DDB453700E19AE4 /* displacement.vert */,
 			);
 			name = shaders_gl3;
 			path = bin/data/shaders_gl3;
