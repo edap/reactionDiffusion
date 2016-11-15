@@ -52,8 +52,8 @@ void ofApp::draw(){
         shader.setUniformTexture("tex0", output.getTexture(), 1 );
         shader.setUniform1f( "ru", ru);
         shader.setUniform1f( "rv", rv);
-        shader.setUniform1f( "f", f );
-        shader.setUniform1f( "k", k );
+        shader.setUniform1f( "f", f);
+        shader.setUniform1f( "k", k);
         pingPong.src->draw(0, 0); // draw the source texture here!!!
         shader.end();
         pingPong.dst->end();
@@ -67,6 +67,8 @@ void ofApp::draw(){
     texture.bind();
     plane.mapTexCoordsFromTexture(texture);
     updateRender.begin();
+    updateRender.setUniform1f("discardRed", discardRed);
+    updateRender.setUniform1f("displaceAmount", displaceAmount);
     plane.draw();
     updateRender.end();
     texture.unbind();
@@ -117,6 +119,8 @@ void ofApp::addGui(){
     gui.add(materialColor.setup("material",
                                 ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 
+    gui.add(discardRed.setup("discardRed", 0.25, 0.01, 1.0));
+    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 10.0));
     gui.add(nPasses.setup("passes", 4, 1, 30));
     gui.add(radius.setup("radius", 10, 3, 50));
     gui.add(restartButton.setup("restart"));

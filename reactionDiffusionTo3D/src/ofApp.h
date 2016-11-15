@@ -91,6 +91,9 @@ public:
     ofParameter<glm::vec3> lightPos;
     ofxColorSlider materialColor;
 
+    ofxFloatSlider discardRed;
+    ofxFloatSlider displaceAmount;
+
     ofPlanePrimitive plane;
 
     ofxIntSlider nPasses;
