@@ -66,11 +66,11 @@ void ofApp::draw(){
     cam.begin();
     texture.bind();
     plane.mapTexCoordsFromTexture(texture);
-    updateRender.begin();
+    //updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
     plane.draw();
-    updateRender.end();
+    //updateRender.end();
     texture.unbind();
     cam.end();
     maybeDrawGui();
