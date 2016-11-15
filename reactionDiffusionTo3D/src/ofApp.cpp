@@ -71,8 +71,6 @@ void ofApp::draw(){
     texture.bind();
     plane.mapTexCoordsFromTexture(texture);
     updateRender.begin();
-    //updateRender.setUniformTexture("scottGrayTex", pingPong.src->getTexture(),0 );
-    // set uniform texture
     plane.draw();
     updateRender.end();
     pingPong.src->getTexture().unbind();
