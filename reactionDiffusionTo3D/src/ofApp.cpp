@@ -73,14 +73,14 @@ void ofApp::draw(){
     updateRender.begin();
     plane.draw();
     updateRender.end();
-    pingPong.src->getTexture().unbind();
+    texture.unbind();
     cam.end();
     maybeDrawGui();
 }
 
 void ofApp::clearBuffersAndAllocate(){
     // to use an image as source instead the mouse click, uncomment this:
-    image.load("img3.jpg");
+    image.load("img2.jpg");
     width = image.getWidth();
     height = image.getHeight();
     
