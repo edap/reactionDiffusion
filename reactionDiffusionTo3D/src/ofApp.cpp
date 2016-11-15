@@ -37,6 +37,14 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+
+
+
+}
+
+//--------------------------------------------------------------
+void ofApp::draw(){
+    // start ping pong
     for( int i = 0; i < nPasses ; i++ ){
         pingPong.dst->begin();
         shader.begin();
