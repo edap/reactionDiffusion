@@ -15,9 +15,9 @@ void ofApp::setup(){
     light.lookAt(ofVec3f(0,0,0));
 
     // Plane
-    plane.set(640, 480);
+    plane.set(640, 640);
     plane.setPosition(0, 0, 0);
-    plane.setResolution(640, 480);
+    plane.setResolution(1024, 1024);
 
 
     readFilesDirectory();
