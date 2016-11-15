@@ -72,7 +72,7 @@ public:
     ofShader updateRender;
     string shadersFolder = "shaders_gl3";
     ofImage image;
-    ofSpherePrimitive sphere;
+    ofPlanePrimitive plane;
     ofLight light;
     ofEasyCam cam;
 
@@ -90,11 +90,9 @@ public:
     ofxIntSlider radius;
     ofParameter<glm::vec3> lightPos;
     ofxColorSlider materialColor;
-
     ofxFloatSlider discardRed;
     ofxFloatSlider displaceAmount;
 
-    ofPlanePrimitive plane;
 
     ofxIntSlider nPasses;
     ofxButton restartButton;
