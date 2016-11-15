@@ -60,12 +60,8 @@ void ofApp::draw(){
         pingPong.swap();
     }
     pingPong.swap();
+    //end ping pong
 
-
-}
-
-//--------------------------------------------------------------
-void ofApp::draw(){
     auto texture = pingPong.src->getTexture();
     cam.begin();
     texture.bind();
