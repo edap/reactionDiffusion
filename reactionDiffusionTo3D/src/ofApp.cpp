@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     //ofDisableAlphaBlending();
-    //ofEnableDepthTest();
+    ofEnableDepthTest();
 
     width = ofGetWidth();
     height = ofGetHeight();
@@ -46,6 +46,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     // start ping pong
+    ofDisableDepthTest();
     for( int i = 0; i < nPasses ; i++ ){
         pingPong.dst->begin();
         shader.begin();
@@ -64,6 +65,7 @@ void ofApp::draw(){
     //end ping pong
 
     auto texture = pingPong.src->getTexture();
+    ofEnableDepthTest();
     cam.begin();
     texture.bind();
     plane.mapTexCoordsFromTexture(texture);
@@ -74,10 +76,12 @@ void ofApp::draw(){
     updateRender.end();
     texture.unbind();
     cam.end();
+    ofDisableDepthTest();
     maybeDrawGui();
 }
 
 void ofApp::clearBuffersAndAllocate(){
+    ofDisableDepthTest();
     // to use an image as source instead the mouse click, uncomment this:
     image.load("img2.jpg");
     width = image.getWidth();
@@ -105,6 +109,7 @@ void ofApp::clearBuffersAndAllocate(){
     output.begin();
     ofClear(0, 0, 0, 255);
     output.end();
+    ofEnableDepthTest();
 }
 
 // GUI
