@@ -69,10 +69,12 @@ public:
     ofFbo output;
     pingPongBuffer pingPong;
     ofShader shader;
+    ofShader shaderNormalMap;
     ofShader updateRender;
     string shadersFolder = "shaders_gl3";
     ofImage image;
     ofPlanePrimitive plane;
+    ofSpherePrimitive sphere;
     ofLight light;
     ofEasyCam cam;
 

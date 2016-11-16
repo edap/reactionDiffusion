@@ -19,6 +19,9 @@ void ofApp::setup(){
     plane.setPosition(0, 0, 0);
     plane.setResolution(1024, 1024);
 
+    //Sphere
+    sphere.set(1000, 1000);
+
 
     readFilesDirectory();
     ofEnableSmoothing();
@@ -68,12 +71,14 @@ void ofApp::draw(){
     ofEnableDepthTest();
     cam.begin();
     texture.bind();
-    plane.mapTexCoordsFromTexture(texture);
-    //updateRender.begin();
-    //updateRender.setUniform1f("discardRed", discardRed);
-    //updateRender.setUniform1f("displaceAmount", displaceAmount);
-    plane.draw();
-    //updateRender.end();
+    //plane.mapTexCoordsFromTexture(texture);
+    sphere.mapTexCoordsFromTexture(texture);
+    updateRender.begin();
+    updateRender.setUniform1f("discardRed", discardRed);
+    updateRender.setUniform1f("displaceAmount", displaceAmount);
+    //plane.draw();
+    sphere.draw();
+    updateRender.end();
     texture.unbind();
     cam.end();
     ofDisableDepthTest();
