@@ -29,7 +29,8 @@ void ofApp::setup(){
     } else {
         //shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
-        updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
+        updateRender.load(shadersFolder+"/normals.vert", shadersFolder+"/normals.frag");
+        //updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
     };
     clearBuffersAndAllocate();
     addGui();
@@ -66,11 +67,11 @@ void ofApp::draw(){
     cam.begin();
     texture.bind();
     plane.mapTexCoordsFromTexture(texture);
-    //updateRender.begin();
+    updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
     plane.draw();
-    //updateRender.end();
+    updateRender.end();
     texture.unbind();
     cam.end();
     maybeDrawGui();

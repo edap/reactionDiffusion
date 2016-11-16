@@ -58,8 +58,8 @@
 		52AFA1F08C420992CAAAE648 /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSlider.h; path = ../../../addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
 		6F5CEE641DD9CF1B00E19AE4 /* grayscott.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = grayscott.frag; sourceTree = "<group>"; };
 		6F5CEE651DD9CF1B00E19AE4 /* passthru.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = passthru.vert; sourceTree = "<group>"; };
-		6F5CEE661DD9CF5A00E19AE4 /* normal.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = normal.vert; sourceTree = "<group>"; };
-		6F5CEE671DD9CF8000E19AE4 /* light.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = light.frag; sourceTree = "<group>"; };
+		6F5CEE661DD9CF5A00E19AE4 /* normals.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = normals.vert; sourceTree = "<group>"; };
+		6F5CEE671DD9CF8000E19AE4 /* normals.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = normals.frag; sourceTree = "<group>"; };
 		6F5CEE701DDA6B4E00E19AE4 /* render.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = render.frag; sourceTree = "<group>"; };
 		6F5CEE781DDB453700E19AE4 /* displacement.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = displacement.vert; sourceTree = "<group>"; };
 		78D67A00EB899FAC09430597 /* ofxLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLabel.cpp; path = ../../../addons/ofxGui/src/ofxLabel.cpp; sourceTree = SOURCE_ROOT; };
@@ -115,8 +115,8 @@
 			children = (
 				6F5CEE641DD9CF1B00E19AE4 /* grayscott.frag */,
 				6F5CEE651DD9CF1B00E19AE4 /* passthru.vert */,
-				6F5CEE661DD9CF5A00E19AE4 /* normal.vert */,
-				6F5CEE671DD9CF8000E19AE4 /* light.frag */,
+				6F5CEE661DD9CF5A00E19AE4 /* normals.vert */,
+				6F5CEE671DD9CF8000E19AE4 /* normals.frag */,
 				6F5CEE701DDA6B4E00E19AE4 /* render.frag */,
 				6F5CEE781DDB453700E19AE4 /* displacement.vert */,
 			);
