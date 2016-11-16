@@ -32,8 +32,8 @@ void ofApp::setup(){
     } else {
         //shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
-        //updateRender.load(shadersFolder+"/normals.vert", shadersFolder+"/normals.frag");
-        //updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
+        shaderNormalMap.load(shadersFolder+"/normals.vert", shadersFolder+"/normals.frag");
+        updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
     };
     clearBuffersAndAllocate();
     addGui();
