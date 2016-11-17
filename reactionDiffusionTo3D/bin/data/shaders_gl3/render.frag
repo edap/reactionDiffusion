@@ -7,6 +7,7 @@ uniform float discardRed;
 uniform vec3 lightPos;
 
 in vec2 vTexCoord;
+in vec4 vPosition;
 out vec4 vFragColor;
 
 void main() {

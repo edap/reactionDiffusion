@@ -10,6 +10,7 @@ in vec2 texcoord;
 in vec3 normal;
 
 out vec2 vTexCoord;
+out vec4 vPosition;
 
 void main() {
     vTexCoord = texcoord;
@@ -19,6 +20,7 @@ void main() {
 
     // move the position along the normal and transform it
     vec3 newPosition = position.xyz + normal * displacement;
-    gl_Position = modelViewProjectionMatrix * vec4( newPosition, 1.0 );
+    vPosition = modelViewProjectionMatrix * vec4( newPosition, 1.0 );
+    gl_Position = vPosition;
     //gl_Position = modelViewProjectionMatrix * position;
 }
