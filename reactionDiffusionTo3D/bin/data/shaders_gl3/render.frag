@@ -4,6 +4,7 @@
 
 uniform sampler2DRect tex0;
 uniform float discardRed;
+uniform vec3 lightPos;
 
 in vec2 vTexCoord;
 out vec4 vFragColor;
