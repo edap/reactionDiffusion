@@ -11,9 +11,11 @@ in vec3 normal;
 
 out vec2 vTexCoord;
 out vec4 vPosition;
+out vec3 vNormal;
 
 void main() {
     vTexCoord = texcoord;
+    vNormal = normal;
     // vertex displacement based on the color
     vec4 color = texture(tex0, vTexCoord);
     float displacement = + displaceAmount * (color.g + color.b);

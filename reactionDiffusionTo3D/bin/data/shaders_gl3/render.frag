@@ -8,6 +8,8 @@ uniform vec3 lightPos;
 
 in vec2 vTexCoord;
 in vec4 vPosition;
+in vec3 vNormal;
+
 out vec4 vFragColor;
 
 void main() {
