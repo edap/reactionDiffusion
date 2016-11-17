@@ -13,6 +13,8 @@ void main() {
     if(color.r > discardRed) {
         discard;
     }else{
+        //insert here light calculation, using light position
+        // and normals obtained by with the normalMap + normals of the sphere.
         vFragColor = texture(tex0, vTexCoord);
     }
 }

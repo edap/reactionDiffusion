@@ -5,22 +5,17 @@ void ofApp::setup(){
     //ofDisableAlphaBlending();
     ofEnableDepthTest();
 
+    objectLocation = glm::vec3(0,0,0);
     width = ofGetWidth();
     height = ofGetHeight();
 
-    lightPos = glm::vec3(0.8,0.3,0.2);
-    light.setup();
-    light.enable();
-    light.setPosition(lightPos);
-    light.lookAt(ofVec3f(0,0,0));
-
     // Plane
     plane.set(640, 640);
-    plane.setPosition(0, 0, 0);
+    plane.setPosition(objectLocation);
     plane.setResolution(1024, 1024);
 
     //Sphere
-    sphere.set(1000, 1000);
+    sphere.set(200, 200);
 
 
     readFilesDirectory();
@@ -37,11 +32,16 @@ void ofApp::setup(){
     };
     clearBuffersAndAllocate();
     addGui();
+    // light comes last because lightPos is set in the GUI
+    light.setup();
+    light.enable();
+    light.setPosition(lightPos);
+    light.lookAt(objectLocation);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    light.setPosition(lightPos);
 
 
 }
@@ -80,6 +80,7 @@ void ofApp::draw(){
     sphere.draw();
     updateRender.end();
     texture.unbind();
+    light.draw();
     cam.end();
     ofDisableDepthTest();
     maybeDrawGui();
@@ -125,13 +126,15 @@ void ofApp::addGui(){
     gui.add(rv.setup("rv", 0.04, 0.04, 0.16));
     gui.add(f.setup("feed", 0.0195, 0.018, 0.060));
     gui.add(k.setup("k", 0.066, 0.050, 0.070));
-    gui.add(lightPos.set("lightPosition",lightPos
-                         ));
+	gui.add(lightPos.setup("lightPosition",
+                           ofVec3f(ofGetWidth()*.5, ofGetHeight()*.5, 100),
+                           ofVec3f(0, 0, -100),
+                           ofVec3f(ofGetWidth(), ofGetHeight(),200)));
     gui.add(materialColor.setup("material",
                                 ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 
     gui.add(discardRed.setup("discardRed", 0.25, 0.01, 1.0));
-    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 10.0));
+    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 20.0));
     gui.add(nPasses.setup("passes", 4, 1, 30));
     gui.add(radius.setup("radius", 10, 3, 50));
     gui.add(restartButton.setup("restart"));

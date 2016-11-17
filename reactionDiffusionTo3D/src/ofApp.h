@@ -66,35 +66,40 @@ public:
     void clearBuffersAndAllocate();
     void maybeDrawGui();
 
+    //ping pong
     ofFbo output;
     pingPongBuffer pingPong;
+    //shaders
     ofShader shader;
     ofShader shaderNormalMap;
     ofShader updateRender;
     string shadersFolder = "shaders_gl3";
+
+    // variables needed for the scene
     ofImage image;
+    glm::vec3 objectLocation;
     ofPlanePrimitive plane;
     ofSpherePrimitive sphere;
     ofLight light;
     ofEasyCam cam;
+    int width;
+    int height;
 
+    //GUI
     void addGui();
     void readFilesDirectory();
     void restartButtonPressed();
     bool hideGui = false;
-    int width;
-    int height;
 
     ofxFloatSlider ru;
     ofxFloatSlider rv;
     ofxFloatSlider f;
     ofxFloatSlider k;
     ofxIntSlider radius;
-    ofParameter<glm::vec3> lightPos;
+    ofxVec3Slider lightPos;
     ofxColorSlider materialColor;
     ofxFloatSlider discardRed;
     ofxFloatSlider displaceAmount;
-
 
     ofxIntSlider nPasses;
     ofxButton restartButton;
