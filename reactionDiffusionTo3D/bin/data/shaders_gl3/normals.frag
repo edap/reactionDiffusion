@@ -26,6 +26,10 @@ void main(){
 
    vec3 N = normalize( vec3( dX, dY, 0.01) );
 
+   // this is needed to transform a vector that goes from 0 to 1 to a vector that
+   // goes from -1 to 1. Normals vector, goes from -1 to 1, not from 0 to 1
+   // It is like to say
+   // vec3 N = N * 0.5 + 0.5; // transforms from [-1,1] to [0,1]
    N *= 0.5;
    N += 0.5;
 
