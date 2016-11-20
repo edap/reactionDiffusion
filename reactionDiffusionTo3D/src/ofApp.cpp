@@ -5,7 +5,7 @@ void ofApp::setup(){
     //ofDisableAlphaBlending();
     ofEnableDepthTest();
 
-    objectLocation = glm::vec3(0,0,0);
+    objectLocation = glm::vec3(0.0,0.0,0.0);
     width = ofGetWidth();
     height = ofGetHeight();
 
@@ -71,6 +71,7 @@ void ofApp::draw(){
     }
     pingPong.swap();
     //end ping pong
+    ofMatrix4x4 modelMatrix = ofMatrix4x4::newIdentityMatrix();
 
     auto texture = pingPong.src->getTexture();
     ofEnableDepthTest();
@@ -82,6 +83,7 @@ void ofApp::draw(){
     updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
     updateRender.setUniform3f("lightPos", lightPos);
+    updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
     //plane.draw();
     // to debug the shaderNormalMap

@@ -6,8 +6,7 @@ uniform vec3 lightPos;
 
 in vec2 vTexCoord;
 in vec4 vPosition;
-in vec3 vNormal;
-in mat3 TBN;
+in vec3 normalFromNormalMap;
 
 out vec4 vFragColor;
 
@@ -17,7 +16,7 @@ void main() {
         discard;
     }else{
         vec3 lightDirection = normalize(vPosition.xyz - lightPos);
-        float dProd = max(0.3, dot(vNormal, lightDirection));
+        float dProd = max(0.3, dot(normalFromNormalMap, lightDirection));
         vec4 colorWithLight = vec4( vec3( dProd ) * vec3( texColor ), 1.0 );
         //insert here light calculation, using light position
         // and normals obtained by with the normalMap + normals of the sphere.
