@@ -80,10 +80,14 @@ public:
     glm::vec3 objectLocation;
     ofPlanePrimitive plane;
     ofSpherePrimitive sphere;
+    ofBoxPrimitive box;
     ofLight light;
     ofEasyCam cam;
     int width;
     int height;
+
+    //normal mapping
+
 
     //GUI
     void addGui();

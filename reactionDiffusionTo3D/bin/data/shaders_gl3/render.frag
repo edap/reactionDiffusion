@@ -1,7 +1,5 @@
 #version 150
 
-// This fill the billboard made on the Geometry Shader with a texture
-
 uniform sampler2DRect tex0;
 uniform float discardRed;
 uniform vec3 lightPos;
@@ -9,6 +7,7 @@ uniform vec3 lightPos;
 in vec2 vTexCoord;
 in vec4 vPosition;
 in vec3 vNormal;
+in mat3 TBN;
 
 out vec4 vFragColor;
 

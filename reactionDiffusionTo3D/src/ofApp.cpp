@@ -16,7 +16,8 @@ void ofApp::setup(){
 
     //Sphere
     sphere.set(200, 200);
-
+    //box
+    box.set( 200 );
 
     readFilesDirectory();
     ofEnableSmoothing();
@@ -29,6 +30,9 @@ void ofApp::setup(){
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shaderNormalMap.load(shadersFolder+"/normals.vert", shadersFolder+"/normals.frag");
         updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
+        glm::mat4 mvmatrix = cam.getModelViewMatrix();
+        auto normalMatrix = glm::transpose(glm::inverse(mvmatrix));
+        updateRender.setUniformMatrix4f("normalMatrix", normalMatrix);
     };
     clearBuffersAndAllocate();
     addGui();
@@ -48,6 +52,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofBackgroundGradient(ofFloatColor::seaGreen, ofFloatColor::saddleBrown);
     // start ping pong
     ofDisableDepthTest();
     for( int i = 0; i < nPasses ; i++ ){
@@ -72,12 +77,18 @@ void ofApp::draw(){
     cam.begin();
     texture.bind();
     //plane.mapTexCoordsFromTexture(texture);
-    sphere.mapTexCoordsFromTexture(texture);
+    //sphere.mapTexCoordsFromTexture(texture);
+    box.mapTexCoordsFromTexture(texture);
     updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
+    updateRender.setUniform3f("lightPos", lightPos);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
     //plane.draw();
-    sphere.draw();
+    // to debug the shaderNormalMap
+    //shaderNormalMap.begin();
+    //sphere.draw();
+    box.draw();
+    //shaderNormalMap.end();
     updateRender.end();
     texture.unbind();
     light.draw();
