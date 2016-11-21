@@ -17,7 +17,7 @@ void ofApp::setup(){
     //Sphere
     sphere.set(200, 200);
     //box
-    box.set( 200 );
+    box.set( 100 );
 
     readFilesDirectory();
     ofEnableSmoothing();
@@ -26,13 +26,9 @@ void ofApp::setup(){
         ofLogError("this app supports only open the programmable render pipeline");
         return 1;
     } else {
-        //shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shaderNormalMap.load(shadersFolder+"/normals.vert", shadersFolder+"/normals.frag");
         updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
-        glm::mat4 mvmatrix = cam.getModelViewMatrix();
-        auto normalMatrix = glm::transpose(glm::inverse(mvmatrix));
-        updateRender.setUniformMatrix4f("normalMatrix", normalMatrix);
     };
     clearBuffersAndAllocate();
     addGui();

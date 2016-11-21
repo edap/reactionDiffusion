@@ -18,9 +18,6 @@ void main() {
         vec3 lightDirection = normalize(vPosition.xyz - lightPos);
         float dProd = max(0.3, dot(normalFromNormalMap, lightDirection));
         vec4 colorWithLight = vec4( vec3( dProd ) * vec3( texColor ), 1.0 );
-        //insert here light calculation, using light position
-        // and normals obtained by with the normalMap + normals of the sphere.
-        vec4 alphaColorWithLight = vec4(vec3(colorWithLight.rgb), 1.0);
-        vFragColor = alphaColorWithLight;
+        vFragColor = colorWithLight;
     }
 }

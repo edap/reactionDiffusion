@@ -3,7 +3,6 @@
 uniform mat4 modelViewProjectionMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 modelMatrix;
-//uniform mat4 normalMatrix;
 
 //used in the normal map
 float xOffset = 1.0;
@@ -22,9 +21,9 @@ out vec3 vNormal;
 out mat3 TBN;
 out vec3 normalFromNormalMap;
 
-// normally, when doing normal mapping, the normal map is given throug a texture
-// here it is calculated on the fly. See normals.frag, normals.vert, and try to
-// apply the shaderNormalMap
+// normally, when doing normal mapping, the normal map is given throug a texture.
+// Here it is calculated on the fly. See normals.frag, normals.vert, and try to
+// apply the shaderNormalMap to debug it
 vec3 vFromNormalMap(){
     float sCoord		= texcoord.s;
     float tCoord		= texcoord.t;
@@ -70,19 +69,22 @@ void main() {
     else
         tangent = c2;
 
+    tangent     = normalize(tangent);
+    bitangent   = normalize(cross(normal, tangent));
+
     // now we need what it is called a TBN matrix.
     // A TBN matrix converts normals from the normal map (in Tangent Space) to Model Space.
     // A TBN matrix looks like this:
     //    tangent = normalize(tangent);
     //    bitangent = normalize(cross(normal, tangent));
     //    mat3 tbn = mat3( tangent, bitangent, normal );
-    // but what we need is to convert the tangen space to world space, so that
+    // but what we need is to convert the tangen space to world space, in a way that we
     // we can calculate the light direction
     vec3 T = normalize(vec3(modelMatrix * vec4(tangent,   0.0)));
     vec3 B = normalize(vec3(modelMatrix * vec4(bitangent, 0.0)));
     vec3 N = normalize(vec3(modelMatrix * vec4(normal,    0.0)));
     TBN = mat3(T, B, N);
-    normalFromNormalMap = normalize(normalFromNormalMap * 2.0 - 1.0);
+    //normalFromNormalMap = normalize(normalFromNormalMap * 2.0 - 1.0);
     normalFromNormalMap = normalize(TBN * normalFromNormalMap);
 
     // LEAVE THE VERTEX DISPLACEMENT OUT FOR A MOMENT
@@ -90,11 +92,9 @@ void main() {
     //vec4 color = texture(tex0, vTexCoord);
     //float displacement = + displaceAmount * (color.g + color.b);
     // move the position along the normal and transform it
-    //vec3 newPosition = position.xyz + normal * displacement;
+    //vec3 newPosition = position.xyz + normalFromNormalMap * displacement;
     //vPosition = modelViewProjectionMatrix * vec4( newPosition, 1.0 );
     // END OLD VERTEX DISPLACEMENT
-    //vNormal = normalize(normalFromNormalMap * TBN);
-    vec3 vertexWorld = ( modelMatrix * position ).xyz;
 
     vNormal = normal;
     vPosition = modelViewProjectionMatrix * vec4( position.xyz, 1.0 ) ;
