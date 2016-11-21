@@ -1,7 +1,6 @@
 #version 150
 
 uniform mat4 modelViewProjectionMatrix;
-uniform mat4 modelViewMatrix;
 uniform mat4 modelMatrix;
 
 //used in the normal map
@@ -18,12 +17,11 @@ in vec3 normal;
 out vec2 vTexCoord;
 out vec4 vPosition;
 out vec3 vNormal;
-out mat3 TBN;
-out vec3 normalFromNormalMap;
 
 // normally, when doing normal mapping, the normal map is given throug a texture.
 // Here it is calculated on the fly. See normals.frag, normals.vert, and try to
-// apply the shaderNormalMap to debug it
+// apply the shaderNormalMap to debug it.
+// this calculations comes from https://github.com/patriciogonzalezvivo/ofxFX/blob/master/src/operations/ofxNormals.h
 vec3 vFromNormalMap(){
     float sCoord		= texcoord.s;
     float tCoord		= texcoord.t;
@@ -53,9 +51,8 @@ vec3 vFromNormalMap(){
 }
 
 void main() {
+    //all this part comes from http://learnopengl.com/#!Advanced-Lighting/Normal-Mapping
     vTexCoord = texcoord;
-    normalFromNormalMap = normalize(TBN * vFromNormalMap());
-
     // Now we go in Tangent Space
     // The Tangent Space is the coordinate space that the normals in a normal map are in.
     // this is an approximative method to obtain the tangent from the normal.
@@ -83,9 +80,11 @@ void main() {
     vec3 T = normalize(vec3(modelMatrix * vec4(tangent,   0.0)));
     vec3 B = normalize(vec3(modelMatrix * vec4(bitangent, 0.0)));
     vec3 N = normalize(vec3(modelMatrix * vec4(normal,    0.0)));
-    TBN = mat3(T, B, N);
-    //normalFromNormalMap = normalize(normalFromNormalMap * 2.0 - 1.0);
-    normalFromNormalMap = normalize(TBN * normalFromNormalMap);
+    mat3 TBN = mat3(T, B, N);
+
+    vec3 normalFromNormalMap = vFromNormalMap();
+    vNormal = normalize(TBN * normalFromNormalMap);
+    //vNormal = normal;
 
     // LEAVE THE VERTEX DISPLACEMENT OUT FOR A MOMENT
     // vertex displacement based on the color
@@ -96,7 +95,6 @@ void main() {
     //vPosition = modelViewProjectionMatrix * vec4( newPosition, 1.0 );
     // END OLD VERTEX DISPLACEMENT
 
-    vNormal = normal;
     vPosition = modelViewProjectionMatrix * vec4( position.xyz, 1.0 ) ;
     gl_Position = vPosition;
     //gl_Position = modelViewProjectionMatrix * position;
