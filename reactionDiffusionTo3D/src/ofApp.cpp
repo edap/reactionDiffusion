@@ -42,6 +42,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     light.setPosition(lightPos);
+    light.lookAt(objectLocation); // ? needed?
 }
 
 //--------------------------------------------------------------
@@ -72,7 +73,7 @@ void ofApp::draw(){
     cam.begin();
     texture.bind();
     //plane.mapTexCoordsFromTexture(texture);
-    //sphere.mapTexCoordsFromTexture(texture);
+    sphere.mapTexCoordsFromTexture(texture);
     box.mapTexCoordsFromTexture(texture);
     updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
@@ -82,8 +83,8 @@ void ofApp::draw(){
     //plane.draw();
     // to debug the shaderNormalMap
     //shaderNormalMap.begin();
-    //sphere.draw();
-    box.draw();
+    sphere.draw();
+    //box.draw();
     //shaderNormalMap.end();
     updateRender.end();
     texture.unbind();

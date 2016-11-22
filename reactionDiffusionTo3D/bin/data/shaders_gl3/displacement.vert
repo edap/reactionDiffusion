@@ -1,6 +1,7 @@
 #version 150
 
 uniform mat4 modelViewProjectionMatrix;
+uniform mat4 modelViewMatrix;
 uniform mat4 modelMatrix;
 
 //used in the normal map
@@ -83,15 +84,20 @@ void main() {
     mat3 TBN = mat3(T, B, N);
 
     vec3 normalFromNormalMap = vFromNormalMap();
+    //This normal calculation with the TBN should be the correct one
+    // but it does not work, it is clearly visible when mapping to a sphere
+    //A what it is correct but looks wrong
     vNormal = normalize(TBN * normalFromNormalMap);
-    //vNormal = normal;
+    //B what it could look correct, at least the bumb, but it is wrong
+    // In this case the bump mapping is visible, but the light calculation is wrong
+    //vNormal = normalize(vec3(modelMatrix * vec4(normalFromNormalMap, 1.0)).xyz);
 
     // LEAVE THE VERTEX DISPLACEMENT OUT FOR A MOMENT
     // vertex displacement based on the color
     //vec4 color = texture(tex0, vTexCoord);
     //float displacement = + displaceAmount * (color.g + color.b);
     // move the position along the normal and transform it
-    //vec3 newPosition = position.xyz + normalFromNormalMap * displacement;
+    //vec3 newPosition = position.xyz + vNormal * displacement;
     //vPosition = modelViewProjectionMatrix * vec4( newPosition, 1.0 );
     // END OLD VERTEX DISPLACEMENT
 
