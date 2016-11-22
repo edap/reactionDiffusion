@@ -15,7 +15,7 @@ void ofApp::setup(){
     plane.setResolution(1024, 1024);
 
     //Sphere
-    sphere.set(200, 200);
+    sphere.set(100, 100);
     //box
     box.set( 100 );
 
@@ -29,6 +29,10 @@ void ofApp::setup(){
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shaderNormalMap.load(shadersFolder+"/normals.vert", shadersFolder+"/normals.frag");
         updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
+//        glm::mat4 mvmatrix = cam.getModelViewMatrix();
+//        auto normalMatrix = glm::transpose(glm::inverse(mvmatrix));
+//        updateRender.setUniformMatrix4f("normalMatrix", normalMatrix);
+
     };
     clearBuffersAndAllocate();
     addGui();
@@ -74,7 +78,7 @@ void ofApp::draw(){
     texture.bind();
     //plane.mapTexCoordsFromTexture(texture);
     sphere.mapTexCoordsFromTexture(texture);
-    box.mapTexCoordsFromTexture(texture);
+    //box.mapTexCoordsFromTexture(texture);
     updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
     updateRender.setUniform3f("lightPos", lightPos);

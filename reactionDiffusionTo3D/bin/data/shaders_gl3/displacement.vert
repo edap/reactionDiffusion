@@ -3,6 +3,7 @@
 uniform mat4 modelViewProjectionMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 modelMatrix;
+//uniform mat4 normalMatrix;
 
 //used in the normal map
 float xOffset = 1.0;
@@ -42,8 +43,8 @@ vec3 vFromNormalMap(){
 
     vec3 N = normalize( vec3( dX, dY, 0.01) );
 
-    // this is needed to transform a vector that goes from 0 to 1 to a vector that
-    // goes from -1 to 1. Normals vector, goes from -1 to 1, not from 0 to 1
+    // this is needed to transform a vector that goes from -1 to 1 to a vector that
+    // goes from 0 to 1. Normals vector, goes from -1 to 1, not from 0 to 1
     // It is like to say
     // vec3 N = N * 0.5 + 0.5; // transforms from [-1,1] to [0,1]
     N *= 0.5;
@@ -70,6 +71,7 @@ void main() {
     tangent     = normalize(tangent);
     bitangent   = normalize(cross(normal, tangent));
 
+
     // now we need what it is called a TBN matrix.
     // A TBN matrix converts normals from the normal map (in Tangent Space) to Model Space.
     // A TBN matrix looks like this:
@@ -83,14 +85,9 @@ void main() {
     vec3 N = normalize(vec3(modelMatrix * vec4(normal,    0.0)));
     mat3 TBN = mat3(T, B, N);
 
-    vec3 normalFromNormalMap = vFromNormalMap();
-    //This normal calculation with the TBN should be the correct one
-    // but it does not work, it is clearly visible when mapping to a sphere
-    //A what it is correct but looks wrong
+    // back to vector that goes from -1 to +1
+    vec3 normalFromNormalMap = normalize(vFromNormalMap() * 2.0 -1.0);
     vNormal = normalize(TBN * normalFromNormalMap);
-    //B what it could look correct, at least the bumb, but it is wrong
-    // In this case the bump mapping is visible, but the light calculation is wrong
-    //vNormal = normalize(vec3(modelMatrix * vec4(normalFromNormalMap, 1.0)).xyz);
 
     // LEAVE THE VERTEX DISPLACEMENT OUT FOR A MOMENT
     // vertex displacement based on the color

@@ -15,7 +15,7 @@ void main() {
     if(texColor.r > discardRed) {
         discard;
     }else{
-        vec3 lightDirection = normalize(lightPos -vPosition.xyz );
+        vec3 lightDirection = normalize(lightPos - vPosition.xyz);
         float dProd = max(0.3, dot(vNormal, lightDirection));
         vec4 colorWithLight = vec4( vec3( dProd ) * vec3( texColor ), 1.0 );
         vFragColor = colorWithLight;
