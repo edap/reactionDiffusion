@@ -44,18 +44,20 @@ void ofApp::draw(){
 
 void ofApp::clearBuffersAndAllocate(){
     // to use an image as source instead the mouse click, uncomment this:
-    image.load("img.jpg");
-    width = image.getWidth();
-    height = image.getHeight();
-    // output.allocate(width, height, GL_RGBA);
-    // pingPong.allocate(width, height, GL_RGBA);
-
+    if (useImage) {
+        image.load("img2.jpg");
+        width = image.getWidth();
+        height = image.getHeight();
+    }
     output.allocate(width, height, GL_RGBA);
     pingPong.allocate(width, height, GL_RGBA);
     pingPong.clear();
     pingPong.src->begin();
     // uncomment this to use an image as source
-    image.draw(0,0, width, height);
+
+    if (useImage) {
+        image.draw(0,0, width, height);
+    }
     pingPong.src->end();
 
     output.begin();

@@ -67,6 +67,7 @@ public:
     void readFilesDirectory();
     void restartButtonPressed();
     bool hideGui = false;
+    bool useImage = false;
     int width;
     int height;
 
