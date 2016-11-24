@@ -101,9 +101,11 @@ void ofApp::draw(){
 void ofApp::clearBuffersAndAllocate(){
     ofDisableDepthTest();
     // to use an image as source instead the mouse click, uncomment this:
+    if(useImage){
     image.load("img2.jpg");
     width = image.getWidth();
     height = image.getHeight();
+    }
     
     // output.allocate(width, height, GL_RGBA);
     // pingPong.allocate(width, height, GL_RGBA);
@@ -121,7 +123,9 @@ void ofApp::clearBuffersAndAllocate(){
     pingPong.clear();
     pingPong.src->begin();
     // uncomment this to use an image as source
-    image.draw(0,0, width, height);
+    if (useImage) {
+        image.draw(0,0, width, height);
+    }
     pingPong.src->end();
 
     output.begin();
@@ -233,11 +237,13 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-//    pingPong.src->begin();
-//    ofSetColor(ofNoise( ofGetElapsedTimef() )*255);
-//    //ofSetColor(0,255,255);
-//    ofDrawCircle(x, y, radius);
-//    pingPong.src->end();
+    if (!useImage) {
+        pingPong.src->begin();
+        ofSetColor(ofNoise( ofGetElapsedTimef() )*255);
+        ofDrawCircle(x, y, radius);
+        pingPong.src->end();
+    }
+
 }
 
 //--------------------------------------------------------------

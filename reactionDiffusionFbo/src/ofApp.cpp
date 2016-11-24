@@ -53,8 +53,6 @@ void ofApp::clearBuffersAndAllocate(){
     pingPong.allocate(width, height, GL_RGBA);
     pingPong.clear();
     pingPong.src->begin();
-    // uncomment this to use an image as source
-
     if (useImage) {
         image.draw(0,0, width, height);
     }

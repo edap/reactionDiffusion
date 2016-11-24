@@ -76,6 +76,7 @@ public:
     string shadersFolder = "shaders_gl3";
 
     // variables needed for the scene
+    bool useImage = true;
     ofImage image;
     glm::vec3 objectLocation;
     ofPlanePrimitive plane;
