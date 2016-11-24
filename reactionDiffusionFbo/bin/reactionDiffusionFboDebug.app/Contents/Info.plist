@@ -38,5 +38,7 @@
 	<string>0720</string>
 	<key>DTXcodeBuild</key>
 	<string>7C68</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
 </dict>
 </plist>
