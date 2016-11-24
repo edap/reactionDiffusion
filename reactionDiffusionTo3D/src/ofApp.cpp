@@ -34,8 +34,9 @@ void ofApp::setup(){
 //        updateRender.setUniformMatrix4f("normalMatrix", normalMatrix);
 
     };
-    clearBuffersAndAllocate();
+
     addGui();
+    clearBuffersAndAllocate();
     // light comes last because lightPos is set in the GUI
     light.setup();
     light.enable();
@@ -73,6 +74,7 @@ void ofApp::draw(){
     ofMatrix4x4 modelMatrix = ofMatrix4x4::newIdentityMatrix();
 
     auto texture = pingPong.src->getTexture();
+    float useNormalMapToFloat = useNormalMap? 1.0 : 0.0;
     ofEnableDepthTest();
     cam.begin();
     texture.bind();
@@ -81,6 +83,7 @@ void ofApp::draw(){
     //box.mapTexCoordsFromTexture(texture);
     updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
+    updateRender.setUniform1f("useNormalMap", useNormalMapToFloat);
     updateRender.setUniform3f("lightPos", lightPos);
     updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
@@ -151,6 +154,8 @@ void ofApp::addGui(){
 
     gui.add(discardRed.setup("discardRed", 0.25, 0.01, 1.0));
     gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 20.0));
+    gui.add(useImage.setup("useImage", true));
+    gui.add(useNormalMap.setup("useNormalMap", true));
     gui.add(nPasses.setup("passes", 4, 1, 30));
     gui.add(radius.setup("radius", 10, 3, 50));
     gui.add(restartButton.setup("restart"));

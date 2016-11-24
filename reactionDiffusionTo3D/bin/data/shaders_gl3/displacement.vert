@@ -11,6 +11,7 @@ float yOffset = 1.0;
 
 uniform sampler2DRect tex0;
 uniform float displaceAmount;
+uniform float useNormalMap;
 
 in vec4 position;
 in vec2 texcoord;
@@ -53,42 +54,46 @@ vec3 vFromNormalMap(){
 }
 
 void main() {
-    //all this part comes from http://learnopengl.com/#!Advanced-Lighting/Normal-Mapping
+
     vTexCoord = texcoord;
-    // Now we go in Tangent Space
-    // The Tangent Space is the coordinate space that the normals in a normal map are in.
-    // this is an approximative method to obtain the tangent from the normal.
-    // it comes from http://www.geeks3d.com/20130122/normal-mapping-without-precomputed-tangent-space-vectors/
-    vec3 tangent;
-    vec3 bitangent;
-    vec3 c1 = cross(normal, vec3(0.0, 0.0, 1.0));
-    vec3 c2 = cross(normal, vec3(0.0, 1.0, 0.0));
-    if (length(c1) > length(c2))
-        tangent = c1;
-    else
-        tangent = c2;
+    // the normal map calculation it is still a bit buggy
+    if (useNormalMap > 0.5) {
+        //all this part comes from http://learnopengl.com/#!Advanced-Lighting/Normal-Mapping
+        // Now we go in Tangent Space
+        // The Tangent Space is the coordinate space that the normals in a normal map are in.
+        // this is an approximative method to obtain the tangent from the normal.
+        // it comes from http://www.geeks3d.com/20130122/normal-mapping-without-precomputed-tangent-space-vectors/
+        vec3 tangent;
+        vec3 bitangent;
+        vec3 c1 = cross(normal, vec3(0.0, 0.0, 1.0));
+        vec3 c2 = cross(normal, vec3(0.0, 1.0, 0.0));
+        if (length(c1) > length(c2))
+            tangent = c1;
+        else
+            tangent = c2;
 
-    tangent     = normalize(tangent);
-    bitangent   = normalize(cross(normal, tangent));
+        tangent     = normalize(tangent);
+        bitangent   = normalize(cross(normal, tangent));
 
+        // now we need what it is called a TBN matrix.
+        // A TBN matrix converts normals from the normal map (in Tangent Space) to Model Space.
+        // A TBN matrix looks like this:
+        //    tangent = normalize(tangent);
+        //    bitangent = normalize(cross(normal, tangent));
+        //    mat3 tbn = mat3( tangent, bitangent, normal );
+        // but what we need is to convert the tangen space to world space, in a way that we
+        // we can calculate the light direction
+        vec3 T = normalize(vec3(modelMatrix * vec4(tangent,   0.0)));
+        vec3 B = normalize(vec3(modelMatrix * vec4(bitangent, 0.0)));
+        vec3 N = normalize(vec3(modelMatrix * vec4(normal,    0.0)));
+        mat3 TBN = mat3(T, B, N);
 
-    // now we need what it is called a TBN matrix.
-    // A TBN matrix converts normals from the normal map (in Tangent Space) to Model Space.
-    // A TBN matrix looks like this:
-    //    tangent = normalize(tangent);
-    //    bitangent = normalize(cross(normal, tangent));
-    //    mat3 tbn = mat3( tangent, bitangent, normal );
-    // but what we need is to convert the tangen space to world space, in a way that we
-    // we can calculate the light direction
-    vec3 T = normalize(vec3(modelMatrix * vec4(tangent,   0.0)));
-    vec3 B = normalize(vec3(modelMatrix * vec4(bitangent, 0.0)));
-    vec3 N = normalize(vec3(modelMatrix * vec4(normal,    0.0)));
-    mat3 TBN = mat3(T, B, N);
-
-    // back to vector that goes from -1 to +1
-    vec3 normalFromNormalMap = normalize(vFromNormalMap() * 2.0 -1.0);
-    vNormal = normalize(TBN * normalFromNormalMap);
-
+        // back to vector that goes from -1 to +1
+        vec3 normalFromNormalMap = normalize(vFromNormalMap() * 2.0 -1.0);
+        vNormal = normalize(TBN * normalFromNormalMap);
+    }else{
+        vNormal = normal;
+    };
     // LEAVE THE VERTEX DISPLACEMENT OUT FOR A MOMENT
     // vertex displacement based on the color
     //vec4 color = texture(tex0, vTexCoord);

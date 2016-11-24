@@ -76,7 +76,6 @@ public:
     string shadersFolder = "shaders_gl3";
 
     // variables needed for the scene
-    bool useImage = true;
     ofImage image;
     glm::vec3 objectLocation;
     ofPlanePrimitive plane;
@@ -105,7 +104,8 @@ public:
     ofxColorSlider materialColor;
     ofxFloatSlider discardRed;
     ofxFloatSlider displaceAmount;
-
+    ofxToggle useImage;
+    ofxToggle useNormalMap;
     ofxIntSlider nPasses;
     ofxButton restartButton;
     ofxPanel gui;
