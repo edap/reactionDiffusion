@@ -2,7 +2,6 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    tree.setup(2, 1024, 1024, 1024, 30);
 
     //ofDisableAlphaBlending();
     ofEnableDepthTest();
@@ -39,6 +38,9 @@ void ofApp::setup(){
 
     addGui();
     clearBuffersAndAllocate();
+    // tree needs to be called after the the buffer allocation
+    // because we need the texture
+    tree.setup(1, 1024, 1024, 1024, 10, pingPong.src->getTexture());
     // light comes last because lightPos is set in the GUI
     light.setup();
     light.enable();
@@ -82,7 +84,7 @@ void ofApp::draw(){
     texture.bind();
     //plane.mapTexCoordsFromTexture(texture);
     //sphere.mapTexCoordsFromTexture(texture);
-    tree.mapTexCoordsFromTexture(texture);
+    //tree.mapTexCoordsFromTexture(texture);
     //box.mapTexCoordsFromTexture(texture);
     updateRender.begin();
     updateRender.setUniform1f("discardRed", discardRed);
@@ -91,7 +93,7 @@ void ofApp::draw(){
     updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
     //plane.draw();
-    tree.draw(texture);
+    tree.draw();
     // to debug the shaderNormalMap
     //shaderNormalMap.begin();
     //sphere.draw();
