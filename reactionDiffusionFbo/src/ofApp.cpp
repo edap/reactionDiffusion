@@ -73,7 +73,7 @@ void ofApp::addGui(){
     gui.add(k.setup("k", 0.066, 0.050, 0.070));
 
     gui.add(nPasses.setup("passes", 10, 1, 30));
-    gui.add(radius.setup("radius", 10, 3, 50));
+    gui.add(radius.setup("radius", 10, 3, 200));
     gui.add(restartButton.setup("restart"));
 }
 

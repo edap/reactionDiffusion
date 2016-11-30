@@ -93,7 +93,7 @@ public:
     void addGui();
     void readFilesDirectory();
     void restartButtonPressed();
-    bool hideGui = false;
+    bool hideGui = true;
 
     ofxFloatSlider ru;
     ofxFloatSlider rv;

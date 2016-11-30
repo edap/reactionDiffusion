@@ -52,7 +52,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofBackgroundGradient(ofFloatColor::seaGreen, ofFloatColor::saddleBrown);
+    ofBackgroundGradient(ofFloatColor::lightBlue, ofFloatColor::royalBlue);
     // start ping pong
     ofDisableDepthTest();
     for( int i = 0; i < nPasses ; i++ ){
@@ -87,11 +87,11 @@ void ofApp::draw(){
     updateRender.setUniform3f("lightPos", lightPos);
     updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
-    //plane.draw();
     // to debug the shaderNormalMap
     //shaderNormalMap.begin();
     sphere.draw();
-    //box.draw();
+    //plane.draw();
+
     //shaderNormalMap.end();
     updateRender.end();
     texture.unbind();
@@ -105,13 +105,10 @@ void ofApp::clearBuffersAndAllocate(){
     ofDisableDepthTest();
     // to use an image as source instead the mouse click, uncomment this:
     if(useImage){
-    image.load("img2.jpg");
-    width = image.getWidth();
-    height = image.getHeight();
+        image.load("img2.jpg");
+        width = image.getWidth();
+        height = image.getHeight();
     }
-    
-    // output.allocate(width, height, GL_RGBA);
-    // pingPong.allocate(width, height, GL_RGBA);
 
     ofFbo::Settings settings;
     settings.width = width;
@@ -152,11 +149,11 @@ void ofApp::addGui(){
     gui.add(materialColor.setup("material",
                                 ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 
-    gui.add(discardRed.setup("discardRed", 0.25, 0.01, 1.0));
-    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 20.0));
+    gui.add(discardRed.setup("discardRed", 0.82, 0.01, 1.0));
+    gui.add(displaceAmount.setup("displaceAmount", 0.0, 0.1, 40.0));
     gui.add(useImage.setup("useImage", true));
-    gui.add(useNormalMap.setup("useNormalMap", true));
-    gui.add(nPasses.setup("passes", 4, 1, 30));
+    gui.add(useNormalMap.setup("useNormalMap", false));
+    gui.add(nPasses.setup("passes", 30, 1, 30));
     gui.add(radius.setup("radius", 10, 3, 50));
     gui.add(restartButton.setup("restart"));
 }

@@ -1,14 +1,17 @@
-//
-//  Tree.hpp
-//  rdTree
-//
-//  Created by DavidePrati on 25/11/16.
-//
-//
+#pragma once
+#include "ofMain.h"
 
-#ifndef Tree_hpp
-#define Tree_hpp
+class Tree {
+public:
+    Tree();
+    std::vector<shared_ptr<ofPlanePrimitive> > planesContainer;
+    void setup(int n_planes, int resolution, int width, int height, float deg);
+    void draw(ofTexture);
+    void mapTexCoordsFromTexture(ofTexture texture);
 
-#include <stdio.h>
-
-#endif /* Tree_hpp */
+private:
+    bool mergeMeshes = false;
+    void perturbatePlane();
+    of3dPrimitive foliage;
+    ofNode node;
+};
