@@ -149,21 +149,29 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    if(mouseDown){
+        drawInSource(x, y);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+    mouseDown = true;
+    drawInSource(x, y);
+}
+
+void ofApp::drawInSource(int x, int y){
     pingPong.src->begin();
-    ofSetColor(ofNoise( ofGetElapsedTimef() )*255);
-    //ofSetColor(0,255,255);
+    ofSetColor(ofNoise( ofGetElapsedTimef()*0.2 )*255);
+    //ofSetColor(0,255,0, 255);
     ofDrawCircle(x, y, radius);
+    //ofDrawRectangle(x, y, 10, 2);
     pingPong.src->end();
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    mouseDown = true;
 }
 
 //--------------------------------------------------------------

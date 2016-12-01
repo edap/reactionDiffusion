@@ -55,7 +55,9 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
     void clearBuffersAndAllocate();
+    void drawInSource(int x, int y);
     void maybeDrawGui();
+    bool mouseDown = false;
 
     ofFbo output;
     pingPongBuffer pingPong;
