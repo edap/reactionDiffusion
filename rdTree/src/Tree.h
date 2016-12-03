@@ -11,4 +11,5 @@ private:
     void perturbatePlane();
     of3dPrimitive foliage;
     ofNode node;
+    vector<glm::vec3> offsets;
 };

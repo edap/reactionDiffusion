@@ -82,6 +82,7 @@ public:
     ofxIntSlider radius;
     ofxButton restartButton;
     ofxPanel gui;
+    ofxColorSlider bgColor;
     vector<string> fileNames;
     ofDirectory dir;
     int selected;

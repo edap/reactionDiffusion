@@ -40,7 +40,7 @@ void ofApp::setup(){
     clearBuffersAndAllocate();
     // tree needs to be called after the the buffer allocation
     // because we need the texture
-    tree.setup(1, 1024, 1024, 1024, 10, pingPong.src->getTexture());
+    tree.setup(6, 1024, 1024, 1024, 10, pingPong.src->getTexture());
     // light comes last because lightPos is set in the GUI
     light.setup();
     light.enable();
