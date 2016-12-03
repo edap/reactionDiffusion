@@ -102,6 +102,7 @@ public:
     ofxIntSlider radius;
     ofxVec3Slider lightPos;
     ofxColorSlider materialColor;
+    ofxColorSlider pointColor;
     ofxFloatSlider discardRed;
     ofxFloatSlider displaceAmount;
     ofxToggle useImage;

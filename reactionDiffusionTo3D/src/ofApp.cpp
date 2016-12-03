@@ -52,7 +52,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofBackgroundGradient(ofFloatColor::lightBlue, ofFloatColor::royalBlue);
+    auto startColor = ofColor(255,152,97, 255);
+    ofBackgroundGradient(startColor, ofFloatColor::royalBlue);
     // start ping pong
     ofDisableDepthTest();
     for( int i = 0; i < nPasses ; i++ ){
@@ -85,6 +86,8 @@ void ofApp::draw(){
     updateRender.setUniform1f("discardRed", discardRed);
     updateRender.setUniform1f("useNormalMap", useNormalMapToFloat);
     updateRender.setUniform3f("lightPos", lightPos);
+    updateRender.setUniform4f("materialColor", ofColor(materialColor));
+    updateRender.setUniform4f("pointColor", ofColor(pointColor));
     updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
     // to debug the shaderNormalMap
@@ -148,7 +151,8 @@ void ofApp::addGui(){
                            ofVec3f(ofGetWidth(), ofGetHeight(),200)));
     gui.add(materialColor.setup("material",
                                 ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
-
+    gui.add(pointColor.setup("pointColor",
+                                ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
     gui.add(discardRed.setup("discardRed", 0.82, 0.01, 1.0));
     gui.add(displaceAmount.setup("displaceAmount", 0.0, 0.1, 40.0));
     gui.add(useImage.setup("useImage", true));
