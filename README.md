@@ -1,9 +1,13 @@
 ### Reaction Diffusion studies
 
-This repository contains 2 apps that implements the reaction diffusion simulation developed by Gray-Scott.
+This repository contains 4 apps that implements the reaction diffusion simulation developed by Gray-Scott.
 
 The app `reactionDiffusionNaive` contains an openFramework sketch that implements the simulation as explained in the [Shiffman's tutorial](https://www.youtube.com/watch?v=BV9ny785UNc). This implementation is slow (around 20FPS) but it is easy to understand.
-The app `reactionDiffusionNaive` does the same but using FBOs and the ping-pong technique to improve performance. It is still a work in progress.
+
+The app `reactionDiffusionFBO` does the same but using FBOs and the ping-pong technique to improve performance. It is still a work in progress.
+
+The app reactionDiffusion3D is the same as before, but with the texture applied to a sphere and vertex displacement
+![example](rd_to_sphere.png)
 
 Both application comes with a GUI to try out differents presets
 
