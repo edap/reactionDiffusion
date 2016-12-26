@@ -104,9 +104,9 @@ void ofApp::draw(){
     updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
 
-    //plane.draw();
-    for(auto t:forest){
-      t.draw();
+    // FOLIAGE
+    for(int i = 0; i< nTrees; i++){
+        forest[i].draw();
     }
     // to debug the shaderNormalMap
     //shaderNormalMap.begin();
@@ -116,10 +116,10 @@ void ofApp::draw(){
     updateRender.end();
     texture.unbind();
 
+    //TRUNK
     material.begin();
-
-    for(auto t:forest){
-    t.drawTrunk();
+    for(int i = 0; i< nTrees; i++){
+        forest[i].drawTrunk();
     }
     material.end();
     light.draw();

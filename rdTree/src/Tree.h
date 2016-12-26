@@ -12,8 +12,9 @@ public:
 private:
     void perturbatePlane();
     of3dPrimitive foliage;
-    ofVec3f position;
+    ofVec2f position;
     ofxAssimpModelLoader trunk;
+    int maxXandYposition = 800;
     //ofVboMesh trunk;
 
     ofNode node;

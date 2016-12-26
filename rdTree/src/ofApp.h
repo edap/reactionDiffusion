@@ -92,7 +92,7 @@ public:
 
     //Tree
     //Tree tree;
-    int nTrees = 2;
+    int nTrees = 5;
     vector<Tree> forest;
 
     //GUI

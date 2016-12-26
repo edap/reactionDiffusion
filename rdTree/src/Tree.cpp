@@ -63,6 +63,10 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
     //you have to rotate the loaded model (google it)
     // than you have to find the right proportions
     // than you have to stop the rd before it becomes a plane
+    position = ofVec2f(ofRandom(maxXandYposition), ofRandom(maxXandYposition));
+    trunk.setPosition(position.x, position.y, 0);
+    foliage.move(position.x, position.y,0);
+
 }
 
 void Tree::draw(){
