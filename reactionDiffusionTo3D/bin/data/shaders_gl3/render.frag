@@ -22,7 +22,6 @@ void main() {
         vec4 colorWithLight = vec4( vec3( dProd ) * vec3( c ), 1.0 );
         vFragColor = colorWithLight;
     } else {
-        //vec4 modCol = vec4(texColor.g, texColor.b, texColor.r, 0.0);
         vec4 modCol = mix(pointColor, materialColor, texColor.r);
         vec3 lightDirection = normalize(lightPos - vPosition.xyz);
         float dProd = max(0.3, dot(vNormal, lightDirection));

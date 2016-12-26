@@ -3,6 +3,10 @@
 uniform sampler2DRect tex0;
 uniform float discardRed;
 uniform vec3 lightPos;
+uniform vec4 lightColor;
+float lightPower;
+uniform vec4 materialColor;
+uniform vec4 pointColor;
 
 in vec2 vTexCoord;
 in vec4 vPosition;
@@ -15,9 +19,16 @@ void main() {
     if (texColor.r > discardRed) {
         discard;
     } else {
+        vec4 modCol = mix(pointColor, materialColor, texColor.r);
         vec3 lightDirection = normalize(lightPos - vPosition.xyz);
-        float dProd = max(0.3, dot(vNormal, lightDirection));
-        vec4 colorWithLight = vec4( vec3( dProd ) * vec3( texColor ), 1.0 );
+        float dProd = max(0.5, dot(vNormal, lightDirection));
+        vec4 colorWithLight = vec4( vec3( dProd ) * vec3( modCol ), 1.0 );
+        // adding a bit of ambient light
+        vec4 ambientColor = lightColor * lightPower;
+        //vFragColor = materialAmbientColor + colorWithLight;
+        //vec4 ambientColor = lightColor * lightPower;
+        //vFragColor = ambientColor + colorWithLight;
+        //vFragColor = ambientColor + colorWithLight;
         vFragColor = colorWithLight;
     }
 }

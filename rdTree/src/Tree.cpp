@@ -4,7 +4,7 @@ Tree::Tree(){
 
 }
 
-void Tree::setup(int n_planes, int resolution, int width, int height, float deg, ofTexture texture){
+void Tree::setup(int n_planes, int resolution, int width, int height, float deg, ofTexture texture, string objPath){
     //shared_ptr<ofNode> root(new ofNode);
     //root->setPosition(glm::vec3(0,0,0));
     //planeContainer.push_back(root);
@@ -16,10 +16,11 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
 
             p.mapTexCoordsFromTexture(texture);
             p.setPosition(0, 0,float(distance*i));
-            p.rollDeg(rot);
+            p.roll(rot);
+            //p.rollDeg(rot);
             auto mesh =p.getMesh();
             for (int i=0; i<mesh.getNumVertices(); i++) {
-                glm::vec3 vert = mesh.getVertex(i);
+                auto vert = mesh.getVertex(i);
 
                 float time = ofGetElapsedTimef();
                 float timeScale = 5.0;
@@ -53,12 +54,23 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
                 p.getMesh().getVerticesPointer()[i] = newVert;
             }
 
-            foliage.getMesh().append(p.getMesh());
+        foliage.getMesh().append(p.getMesh());
+        foliage.move(0, 0, 50);
     }
+    trunk.loadModel(objPath);
+    trunk.setRotation(0, 90, 1, 0, 0);
+
+    //you have to rotate the loaded model (google it)
+    // than you have to find the right proportions
+    // than you have to stop the rd before it becomes a plane
 }
 
 void Tree::draw(){
     foliage.draw();
+}
+
+void Tree::drawTrunk(){
+    trunk.drawFaces();
 }
 
 void Tree::perturbatePlane(){

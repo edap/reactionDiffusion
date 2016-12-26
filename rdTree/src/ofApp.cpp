@@ -6,7 +6,7 @@ void ofApp::setup(){
     //ofDisableAlphaBlending();
     ofEnableDepthTest();
 
-    objectLocation = glm::vec3(0.0,0.0,0.0);
+    objectLocation = ofVec3f(0.0,0.0,0.0);
     width = ofGetWidth();
     height = ofGetHeight();
 
@@ -40,13 +40,20 @@ void ofApp::setup(){
     clearBuffersAndAllocate();
     // tree needs to be called after the the buffer allocation
     // because we need the texture
-    tree.setup(6, 1024, 1024, 1024, 10, pingPong.src->getTexture());
+    for(int i = 0; i< nTrees; i++){
+      Tree tree;
+      tree.setup(4, 512, 512, 512, 10, pingPong.src->getTexture(), "filo.3ds");
+      forest.push_back(tree);
+    }
     // light comes last because lightPos is set in the GUI
     light.setup();
     light.enable();
     light.setPosition(lightPos);
     light.lookAt(objectLocation);
-}
+
+    material.setDiffuseColor(ofFloatColor::red);
+    material.setEmissiveColor(ofFloatColor::red);
+    }
 
 //--------------------------------------------------------------
 void ofApp::update(){
@@ -56,7 +63,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    //ofBackgroundGradient(ofFloatColor::seaGreen, ofFloatColor::saddleBrown);
+    ofBackground(bgColor);
     // start ping pong
     ofDisableDepthTest();
     for( int i = 0; i < nPasses ; i++ ){
@@ -90,10 +97,17 @@ void ofApp::draw(){
     updateRender.setUniform1f("discardRed", discardRed);
     updateRender.setUniform1f("useNormalMap", useNormalMapToFloat);
     updateRender.setUniform3f("lightPos", lightPos);
+    updateRender.setUniform4f("materialColor", ofColor(materialColor));
+    updateRender.setUniform4f("lightColor", ofColor(lightColor));
+    updateRender.setUniform1f("lightPower", lightPower);
+    updateRender.setUniform4f("pointColor", ofColor(pointColor));
     updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
+
     //plane.draw();
-    tree.draw();
+    for(auto t:forest){
+      t.draw();
+    }
     // to debug the shaderNormalMap
     //shaderNormalMap.begin();
     //sphere.draw();
@@ -101,9 +115,16 @@ void ofApp::draw(){
     //shaderNormalMap.end();
     updateRender.end();
     texture.unbind();
+
+    material.begin();
+
+    for(auto t:forest){
+    t.drawTrunk();
+    }
+    material.end();
     light.draw();
 
-
+    //ofDrawAxis(100.00);
     cam.end();
     ofDisableDepthTest();
     maybeDrawGui();
@@ -154,11 +175,19 @@ void ofApp::addGui(){
                            ofVec3f(ofGetWidth()*.5, ofGetHeight()*.5, 100),
                            ofVec3f(-400, -400, -400),
                            ofVec3f(ofGetWidth(), ofGetHeight(),600)));
-    gui.add(materialColor.setup("material",
-                                ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 
+    gui.add(bgColor.setup("bgColor",
+                             ofColor(219, 167, 140), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(materialColor.setup("material",
+                                ofColor(41, 100, 140), ofColor(0, 0), ofColor(255, 255)));
+
+    gui.add(lightColor.setup("light",
+                                ofColor(41, 100, 140), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(pointColor.setup("pointColor",
+                             ofColor(219, 167, 140), ofColor(0, 0), ofColor(255, 255)));
     gui.add(discardRed.setup("discardRed", 0.25, 0.01, 1.0));
-    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 20.0));
+    gui.add(lightPower.setup("lightPower", 0.5, 0.01, 1.0));
+    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 50.0));
     gui.add(useImage.setup("useImage", true));
     gui.add(useNormalMap.setup("useNormalMap", true));
     gui.add(nPasses.setup("passes", 4, 1, 30));

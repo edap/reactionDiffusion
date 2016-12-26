@@ -75,10 +75,11 @@ public:
     ofShader shaderNormalMap;
     ofShader updateRender;
     string shadersFolder = "shaders_gl3";
+    ofMaterial material;
 
     // variables needed for the scene
     ofImage image;
-    glm::vec3 objectLocation;
+    ofVec3f objectLocation;
     ofPlanePrimitive plane;
     ofPlanePrimitive plane2;
     ofSpherePrimitive sphere;
@@ -90,7 +91,9 @@ public:
 
 
     //Tree
-    Tree tree;
+    //Tree tree;
+    int nTrees = 2;
+    vector<Tree> forest;
 
     //GUI
     void addGui();
@@ -105,6 +108,10 @@ public:
     ofxIntSlider radius;
     ofxVec3Slider lightPos;
     ofxColorSlider materialColor;
+    ofxColorSlider lightColor;
+    ofxColorSlider bgColor;
+    ofxFloatSlider lightPower;
+    ofxColorSlider pointColor;
     ofxFloatSlider discardRed;
     ofxFloatSlider displaceAmount;
     ofxToggle useImage;
