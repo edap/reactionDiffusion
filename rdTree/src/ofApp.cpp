@@ -54,7 +54,6 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     light.setPosition(lightPos);
-    light.lookAt(objectLocation); // ? needed?
 }
 
 //--------------------------------------------------------------
