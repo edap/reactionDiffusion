@@ -19,7 +19,4 @@ private:
     int trunkHeight = 550; //this value depends on the loaded mesh and has to be
     //adjusted manually. It is used to calculate the foliage's level position,
     //but it could results wrong positioned if the trunk is too small or too big
-
-    ofNode node;
-    //vector<glm::vec3> offsets;
 };

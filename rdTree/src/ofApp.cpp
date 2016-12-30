@@ -30,10 +30,6 @@ void ofApp::setup(){
         shader.load(shadersFolder+"/passthru.vert", shadersFolder+"/grayscott.frag");
         shaderNormalMap.load(shadersFolder+"/normals.vert", shadersFolder+"/normals.frag");
         updateRender.load(shadersFolder+"/displacement.vert", shadersFolder+"/render.frag");
-//        glm::mat4 mvmatrix = cam.getModelViewMatrix();
-//        auto normalMatrix = glm::transpose(glm::inverse(mvmatrix));
-//        updateRender.setUniformMatrix4f("normalMatrix", normalMatrix);
-
     };
 
     addGui();
@@ -42,7 +38,7 @@ void ofApp::setup(){
     // because we need the texture
     for(int i = 0; i< nTrees; i++){
       Tree tree;
-      tree.setup(20, 512, 512, 512, 10, pingPong.src->getTexture(), "filo.3ds");
+      tree.setup(4, 512, 512, 512, 10, pingPong.src->getTexture(), "filo.3ds");
       forest.push_back(tree);
     }
     // light comes last because lightPos is set in the GUI
@@ -100,6 +96,7 @@ void ofApp::draw(){
     updateRender.setUniform4f("materialColor", ofColor(materialColor));
     updateRender.setUniform4f("lightColor", ofColor(lightColor));
     updateRender.setUniform1f("lightPower", lightPower);
+    updateRender.setUniform1f("lightDistanceScalar", lightDistanceScalar);
     updateRender.setUniform4f("pointColor", ofColor(pointColor));
     updateRender.setUniformMatrix4f("modelMatrix", modelMatrix);
     updateRender.setUniform1f("displaceAmount", displaceAmount);
@@ -186,6 +183,7 @@ void ofApp::addGui(){
                              ofColor(219, 167, 140), ofColor(0, 0), ofColor(255, 255)));
     gui.add(discardRed.setup("discardRed", 0.25, 0.01, 1.0));
     gui.add(lightPower.setup("lightPower", 0.5, 0.01, 1.0));
+    gui.add(lightDistanceScalar.setup("lightDistanceScalar", 0.0015, 0.0005, 0.002));
     gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 50.0));
     gui.add(useImage.setup("useImage", true));
     gui.add(useNormalMap.setup("useNormalMap", true));

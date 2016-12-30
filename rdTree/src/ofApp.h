@@ -113,6 +113,7 @@ public:
     ofxFloatSlider lightPower;
     ofxColorSlider pointColor;
     ofxFloatSlider discardRed;
+    ofxFloatSlider lightDistanceScalar;
     ofxFloatSlider displaceAmount;
     ofxToggle useImage;
     ofxToggle useNormalMap;

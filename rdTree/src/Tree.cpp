@@ -13,7 +13,6 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
 
             p.mapTexCoordsFromTexture(texture);
             p.setPosition(0, 0,float(distance*i));
-        cout << ofToString(distance*i) << endl;
             p.roll(rot);
             //p.rollDeg(rot);
             auto mesh =p.getMesh();
