@@ -51,8 +51,8 @@ void ofApp::setup(){
     light.setPosition(lightPos);
     light.lookAt(objectLocation);
 
-    material.setDiffuseColor(ofFloatColor::red);
-    material.setEmissiveColor(ofFloatColor::red);
+    trunkMaterial.setDiffuseColor(ofFloatColor::red);
+    trunkMaterial.setEmissiveColor(ofFloatColor::red);
     }
 
 //--------------------------------------------------------------
@@ -117,11 +117,11 @@ void ofApp::draw(){
     texture.unbind();
 
     //TRUNK
-    material.begin();
+    trunkMaterial.begin();
     for(int i = 0; i< nTrees; i++){
         forest[i].drawTrunk();
     }
-    material.end();
+    trunkMaterial.end();
     light.draw();
 
     //ofDrawAxis(100.00);
@@ -142,7 +142,7 @@ void ofApp::clearBuffersAndAllocate(){
     ofFbo::Settings settings;
     settings.width = width;
     settings.height	= height;
-    settings.internalformat = GL_RGBA; // or GL_RGBA?
+    settings.internalformat = GL_RGBA;
     settings.useDepth = true;
     settings.depthStencilAsTexture = true;
 
@@ -151,7 +151,6 @@ void ofApp::clearBuffersAndAllocate(){
 
     pingPong.clear();
     pingPong.src->begin();
-    // uncomment this to use an image as source
     if (useImage) {
         image.draw(0,0, width, height);
     }

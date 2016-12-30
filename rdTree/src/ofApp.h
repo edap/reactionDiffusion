@@ -75,7 +75,7 @@ public:
     ofShader shaderNormalMap;
     ofShader updateRender;
     string shadersFolder = "shaders_gl3";
-    ofMaterial material;
+    ofMaterial trunkMaterial;
 
     // variables needed for the scene
     ofImage image;
@@ -92,7 +92,7 @@ public:
 
     //Tree
     //Tree tree;
-    int nTrees = 5;
+    int nTrees = 1;
     vector<Tree> forest;
 
     //GUI
