@@ -5,17 +5,15 @@ Tree::Tree(){
 }
 
 void Tree::setup(int n_planes, int resolution, int width, int height, float deg, ofTexture texture, string objPath){
-    //shared_ptr<ofNode> root(new ofNode);
-    //root->setPosition(glm::vec3(0,0,0));
-    //planeContainer.push_back(root);
-
-    int distance = 100;
+    float foliageHeight = trunkHeight - startingFoliageHeight;
+    float distance = foliageHeight / float(n_planes);
     float rot = 0;
     for (uint i = 0; i < n_planes; i++) {
             auto p = ofPlanePrimitive(width, height, resolution, resolution, OF_PRIMITIVE_TRIANGLES);
 
             p.mapTexCoordsFromTexture(texture);
             p.setPosition(0, 0,float(distance*i));
+        cout << ofToString(distance*i) << endl;
             p.roll(rot);
             //p.rollDeg(rot);
             auto mesh =p.getMesh();
@@ -55,8 +53,9 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
             }
 
         foliage.getMesh().append(p.getMesh());
-        foliage.move(0, 0, 50);
     }
+
+    foliage.move(0, 0, startingFoliageHeight);
     trunk.loadModel(objPath);
     trunk.setRotation(0, 90, 1, 0, 0);
 

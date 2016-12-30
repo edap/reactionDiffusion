@@ -42,7 +42,7 @@ void ofApp::setup(){
     // because we need the texture
     for(int i = 0; i< nTrees; i++){
       Tree tree;
-      tree.setup(4, 512, 512, 512, 10, pingPong.src->getTexture(), "filo.3ds");
+      tree.setup(20, 512, 512, 512, 10, pingPong.src->getTexture(), "filo.3ds");
       forest.push_back(tree);
     }
     // light comes last because lightPos is set in the GUI
