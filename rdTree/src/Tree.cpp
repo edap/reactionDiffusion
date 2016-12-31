@@ -12,7 +12,7 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
             auto p = ofPlanePrimitive(width, height, resolution, resolution, OF_PRIMITIVE_TRIANGLES);
 
             p.mapTexCoordsFromTexture(texture);
-            p.setPosition(0, 0,float(distance*i));
+            p.setPosition(ofRandom(20), ofRandom(20),float(distance*i));
             p.roll(rot);
             //p.rollDeg(rot);
             auto mesh =p.getMesh();

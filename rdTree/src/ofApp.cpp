@@ -48,7 +48,9 @@ void ofApp::setup(){
     light.lookAt(objectLocation);
 
     trunkMaterial.setDiffuseColor(ofColor(trunkColor));
+    perturbateTerrain();
     }
+
 
 //--------------------------------------------------------------
 void ofApp::update(){
@@ -118,6 +120,8 @@ void ofApp::draw(){
         forest[i].drawTrunk();
     }
     trunkMaterial.end();
+
+    terrain.drawWireframe();
     light.draw();
 
     //ofDrawAxis(100.00);
@@ -251,6 +255,28 @@ void ofApp::keyPressed(int key){
             break;
         default:
             break;
+    }
+}
+
+void ofApp::perturbateTerrain(){
+    terrain = ofPlanePrimitive(2000, 2000, 400, 400, OF_PRIMITIVE_TRIANGLES);
+    auto mesh = terrain.getMesh();
+    for (int i=0; i<mesh.getNumVertices(); i++) {
+        auto vert = mesh.getVertex(i);
+
+        float time = ofGetElapsedTimef();
+        float timeScale = 5.0;
+        float timeOffset = 5.0;
+        float displacementScale = 50.75;
+        vert.x += (ofSignedNoise(time*timeScale)) * displacementScale;
+        vert.y += (ofSignedNoise(time*timeScale)) * displacementScale;
+        vert.z += (ofSignedNoise(time*timeScale)) * displacementScale;
+        terrain.getMesh().setVertex(i, vert);
+    }
+    for (int i=0; i<terrain.getMesh().getNumVertices(); i++) {
+        ofVec3f actualVert =terrain.getMesh().getVerticesPointer()[i];
+        ofVec3f newVert = actualVert * terrain.getGlobalTransformMatrix();
+        terrain.getMesh().getVerticesPointer()[i] = newVert;
     }
 }
 

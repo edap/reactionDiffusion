@@ -95,6 +95,10 @@ public:
     int nTrees = 1;
     vector<Tree> forest;
 
+    //Terrain
+    void perturbateTerrain();
+    ofPlanePrimitive terrain;
+
     //GUI
     void addGui();
     void readFilesDirectory();
