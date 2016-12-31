@@ -47,9 +47,7 @@ void ofApp::setup(){
     light.setPosition(lightPos);
     light.lookAt(objectLocation);
 
-    trunkMaterial.setDiffuseColor(ofFloatColor::red);
-    trunkMaterial.setEmissiveColor(ofFloatColor::green);
-    trunkMaterial.setAmbientColor(ofFloatColor::blue);
+    trunkMaterial.setDiffuseColor(ofColor(trunkColor));
     }
 
 //--------------------------------------------------------------
@@ -114,6 +112,7 @@ void ofApp::draw(){
     texture.unbind();
 
     //TRUNK
+    trunkMaterial.setDiffuseColor(ofColor(trunkColor));
     trunkMaterial.begin();
     for(int i = 0; i< nTrees; i++){
         forest[i].drawTrunk();
@@ -174,6 +173,9 @@ void ofApp::addGui(){
 
     gui.add(bgColor.setup("bgColor",
                              ofColor(219, 167, 140), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(trunkColor.setup("trunkColor",
+                          ofColor(227, 195, 0), ofColor(0, 0), ofColor(255, 255)));
+
     gui.add(materialColor.setup("material",
                                 ofColor(41, 100, 140), ofColor(0, 0), ofColor(255, 255)));
 

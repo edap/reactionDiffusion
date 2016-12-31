@@ -107,6 +107,7 @@ public:
     ofxFloatSlider k;
     ofxIntSlider radius;
     ofxVec3Slider lightPos;
+    ofxColorSlider trunkColor;
     ofxColorSlider materialColor;
     ofxColorSlider lightColor;
     ofxColorSlider bgColor;
