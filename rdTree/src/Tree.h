@@ -13,7 +13,8 @@ private:
     void perturbatePlane();
     of3dPrimitive foliage;
     ofVec2f position;
-    ofxAssimpModelLoader trunk;
+    ofxAssimpModelLoader model;
+    ofMesh trunk;
     int maxXandYposition = 800;
     int startingFoliageHeight = 100;
     int trunkHeight = 550; //this value depends on the loaded mesh and has to be

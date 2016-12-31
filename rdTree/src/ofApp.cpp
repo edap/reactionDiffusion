@@ -48,7 +48,8 @@ void ofApp::setup(){
     light.lookAt(objectLocation);
 
     trunkMaterial.setDiffuseColor(ofFloatColor::red);
-    trunkMaterial.setEmissiveColor(ofFloatColor::red);
+    trunkMaterial.setEmissiveColor(ofFloatColor::green);
+    trunkMaterial.setAmbientColor(ofFloatColor::blue);
     }
 
 //--------------------------------------------------------------
@@ -130,7 +131,7 @@ void ofApp::clearBuffersAndAllocate(){
     ofDisableDepthTest();
     // to use an image as source instead the mouse click, uncomment this:
     if(useImage){
-        image.load("img2.jpg");
+        image.load("img.jpg");
         width = image.getWidth();
         height = image.getHeight();
     }
@@ -183,7 +184,7 @@ void ofApp::addGui(){
     gui.add(discardRed.setup("discardRed", 0.25, 0.01, 1.0));
     gui.add(lightPower.setup("lightPower", 0.5, 0.01, 1.0));
     gui.add(lightDistanceScalar.setup("lightDistanceScalar", 0.0015, 0.0005, 0.002));
-    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 50.0));
+    gui.add(displaceAmount.setup("displaceAmount", 4.0, 0.1, 80.0));
     gui.add(useImage.setup("useImage", true));
     gui.add(useNormalMap.setup("useNormalMap", true));
     gui.add(nPasses.setup("passes", 4, 1, 30));

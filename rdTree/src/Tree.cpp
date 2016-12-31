@@ -21,6 +21,7 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
 
                 float time = ofGetElapsedTimef();
                 float timeScale = 5.0;
+                float timeOffset = 5.0;
                 float displacementScale = 50.75;
 
                 // A typical design pattern for using Perlin noise uses a couple parameters:
@@ -55,13 +56,15 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
     }
 
     foliage.move(0, 0, startingFoliageHeight);
-    trunk.loadModel(objPath);
-    trunk.setRotation(0, 90, 1, 0, 0);
+    model.loadModel(objPath);
+    model.setRotation(0, 90, 1, 0, 0);
 
     // you have to stop the rd before it becomes a plane
-    // position = ofVec2f(ofRandom(maxXandYposition), ofRandom(maxXandYposition));
+    //position = ofVec2f(ofRandom(maxXandYposition), ofRandom(maxXandYposition));
     position = ofVec2f(0,0);
-    trunk.setPosition(position.x, position.y, 0);
+    model.setPosition(position.x, position.y, 0);
+
+    trunk = model.getMesh(0);
     foliage.move(position.x, position.y,0);
 }
 
@@ -70,7 +73,8 @@ void Tree::draw(){
 }
 
 void Tree::drawTrunk(){
-    trunk.drawFaces();
+    //model.drawFaces();
+    trunk.draw();
 }
 
 void Tree::perturbatePlane(){
