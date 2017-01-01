@@ -12,7 +12,7 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
             auto p = ofPlanePrimitive(width, height, resolution, resolution, OF_PRIMITIVE_TRIANGLES);
 
             p.mapTexCoordsFromTexture(texture);
-            p.setPosition(ofRandom(20), ofRandom(20),float(distance*i));
+            p.setPosition(ofRandom(20), ofRandom(20),float(distance*i + ofRandom(20)));
             p.roll(rot);
             //p.rollDeg(rot);
             auto mesh =p.getMesh();
@@ -57,14 +57,13 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
 
     foliage.move(0, 0, startingFoliageHeight);
     model.loadModel(objPath);
-    model.setRotation(0, 90, 1, 0, 0);
 
     // you have to stop the rd before it becomes a plane
-    //position = ofVec2f(ofRandom(maxXandYposition), ofRandom(maxXandYposition));
-    position = ofVec2f(0,0);
-    model.setPosition(position.x, position.y, 0);
+    position = ofVec2f(ofRandom(maxXandYposition), ofRandom(maxXandYposition));
+    //position = ofVec2f(0,0);
 
-    trunk = model.getMesh(0);
+    trunk.getMesh() = model.getMesh(0);
+    trunk.setPosition(position.x, position.y, 0);
     foliage.move(position.x, position.y,0);
 }
 

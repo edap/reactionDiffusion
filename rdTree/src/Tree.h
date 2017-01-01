@@ -14,7 +14,7 @@ private:
     of3dPrimitive foliage;
     ofVec2f position;
     ofxAssimpModelLoader model;
-    ofMesh trunk;
+    of3dPrimitive trunk;
     int maxXandYposition = 800;
     int startingFoliageHeight = 100;
     int trunkHeight = 550; //this value depends on the loaded mesh and has to be

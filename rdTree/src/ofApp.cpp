@@ -10,11 +10,6 @@ void ofApp::setup(){
     width = ofGetWidth();
     height = ofGetHeight();
 
-    // Plane
-    plane.set(1024, 1024);
-    plane.setPosition(objectLocation);
-    plane.setResolution(1024, 1024);
-
     //Sphere
     sphere.set(100, 100);
     //box
@@ -48,7 +43,8 @@ void ofApp::setup(){
     light.lookAt(objectLocation);
 
     trunkMaterial.setDiffuseColor(ofColor(trunkColor));
-    perturbateTerrain();
+    terrainMaterial.setDiffuseColor(ofColor(terrainColor));
+    land.setup();
     }
 
 
@@ -85,7 +81,6 @@ void ofApp::draw(){
     ofEnableDepthTest();
     cam.begin();
     texture.bind();
-    //plane.mapTexCoordsFromTexture(texture);
     //sphere.mapTexCoordsFromTexture(texture);
     //tree.mapTexCoordsFromTexture(texture);
     //box.mapTexCoordsFromTexture(texture);
@@ -121,9 +116,13 @@ void ofApp::draw(){
     }
     trunkMaterial.end();
 
-    terrain.drawWireframe();
-    light.draw();
+    //terrain.drawWireframe();
+    terrainMaterial.setDiffuseColor(ofColor(terrainColor));
+    terrainMaterial.begin();
+    land.draw();
+    terrainMaterial.end();
 
+    light.draw();
     //ofDrawAxis(100.00);
     cam.end();
     ofDisableDepthTest();
@@ -177,6 +176,8 @@ void ofApp::addGui(){
 
     gui.add(bgColor.setup("bgColor",
                              ofColor(219, 167, 140), ofColor(0, 0), ofColor(255, 255)));
+    gui.add(terrainColor.setup("terrainColor",
+                             ofColor(227, 195, 100), ofColor(0, 0), ofColor(255, 255)));
     gui.add(trunkColor.setup("trunkColor",
                           ofColor(227, 195, 0), ofColor(0, 0), ofColor(255, 255)));
 
@@ -255,28 +256,6 @@ void ofApp::keyPressed(int key){
             break;
         default:
             break;
-    }
-}
-
-void ofApp::perturbateTerrain(){
-    terrain = ofPlanePrimitive(2000, 2000, 400, 400, OF_PRIMITIVE_TRIANGLES);
-    auto mesh = terrain.getMesh();
-    for (int i=0; i<mesh.getNumVertices(); i++) {
-        auto vert = mesh.getVertex(i);
-
-        float time = ofGetElapsedTimef();
-        float timeScale = 5.0;
-        float timeOffset = 5.0;
-        float displacementScale = 50.75;
-        vert.x += (ofSignedNoise(time*timeScale)) * displacementScale;
-        vert.y += (ofSignedNoise(time*timeScale)) * displacementScale;
-        vert.z += (ofSignedNoise(time*timeScale)) * displacementScale;
-        terrain.getMesh().setVertex(i, vert);
-    }
-    for (int i=0; i<terrain.getMesh().getNumVertices(); i++) {
-        ofVec3f actualVert =terrain.getMesh().getVerticesPointer()[i];
-        ofVec3f newVert = actualVert * terrain.getGlobalTransformMatrix();
-        terrain.getMesh().getVerticesPointer()[i] = newVert;
     }
 }
 

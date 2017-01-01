@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "Tree.h"
+#include "Terrain.h"
 
 struct pingPongBuffer {
 public:
@@ -92,12 +93,12 @@ public:
 
     //Tree
     //Tree tree;
-    int nTrees = 1;
+    int nTrees = 5;
     vector<Tree> forest;
 
     //Terrain
-    void perturbateTerrain();
-    ofPlanePrimitive terrain;
+    Terrain land;
+    ofMaterial terrainMaterial;
 
     //GUI
     void addGui();
@@ -112,6 +113,7 @@ public:
     ofxIntSlider radius;
     ofxVec3Slider lightPos;
     ofxColorSlider trunkColor;
+    ofxColorSlider terrainColor;
     ofxColorSlider materialColor;
     ofxColorSlider lightColor;
     ofxColorSlider bgColor;
