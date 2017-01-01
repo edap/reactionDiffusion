@@ -1,14 +1,56 @@
-//
-//  Terrain.hpp
-//  rdTree
-//
-//  Created by DavidePrati on 01/01/17.
-//
-//
+#pragma once
+#include "ofMain.h"
 
-#ifndef Terrain_hpp
-#define Terrain_hpp
+class Terrain : public of3dPrimitive {
+public:
+    Terrain();
+    void setup(int _cols = 60,
+               int _rows = 60,
+               float _frequence = 0.2,
+               int _time_x = 1,
+               int _time_y = 10,
+               int _time_z = 100,
+               float _max_z = 300.0,
+               float _min_z = 50.0);
+    void draw();
 
-#include <stdio.h>
+    int width = ofGetWidth();
+    int height = ofGetHeight();
 
-#endif /* Terrain_hpp */
+    ofVboMesh mesh;
+    vector<ofVec3f> net;
+
+    //grid variables
+    int cols;
+    int rows;
+    float dim_cells;
+
+    //noise variables
+    //1 noise positioning
+    float time_x;
+    float time_y;
+    float time_z;
+    float frequence;
+
+    //2noise updating
+    float z_off;
+    int min_z;
+    int max_z;
+    float z_off_increment;
+    float amplitude;
+    float freq;
+    float speed;
+    int zoom;
+    bool draw_faces;
+    bool camera_mouse;
+
+
+    float red, green, blue, alpha;
+    ofColor backgroundColor;
+
+
+private:
+    void calcNormals(ofMesh& mesh);
+    of3dPrimitive foliage;
+    ofVboMesh trunk;
+};
