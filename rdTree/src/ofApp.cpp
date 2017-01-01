@@ -44,8 +44,8 @@ void ofApp::setup(){
 
     trunkMaterial.setDiffuseColor(ofColor(trunkColor));
     terrainMaterial.setDiffuseColor(ofColor(terrainColor));
-    land.setup();
-    }
+    terrain.setup();
+}
 
 
 //--------------------------------------------------------------
@@ -55,7 +55,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofBackground(bgColor);
+        ofBackgroundGradient( ofFloatColor::orange, bgColor, OF_GRADIENT_CIRCULAR);
     // start ping pong
     ofDisableDepthTest();
     for( int i = 0; i < nPasses ; i++ ){
@@ -116,14 +116,13 @@ void ofApp::draw(){
     }
     trunkMaterial.end();
 
-    //terrain.drawWireframe();
+    //TERRAIN
     terrainMaterial.setDiffuseColor(ofColor(terrainColor));
     terrainMaterial.begin();
-    land.draw();
+    terrain.draw();
     terrainMaterial.end();
 
     light.draw();
-    //ofDrawAxis(100.00);
     cam.end();
     ofDisableDepthTest();
     maybeDrawGui();

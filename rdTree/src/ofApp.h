@@ -93,11 +93,11 @@ public:
 
     //Tree
     //Tree tree;
-    int nTrees = 5;
+    int nTrees = 10;
     vector<Tree> forest;
 
     //Terrain
-    Terrain land;
+    Terrain terrain;
     ofMaterial terrainMaterial;
 
     //GUI
