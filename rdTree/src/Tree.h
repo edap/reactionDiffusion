@@ -10,7 +10,7 @@ public:
     void drawTrunk();
 
 private:
-    void perturbatePlane();
+    float scale;
     of3dPrimitive foliage;
     ofVec2f position;
     ofxAssimpModelLoader model;

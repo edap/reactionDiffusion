@@ -1,0 +1,21 @@
+<group>
+	<ru>0.25</ru>
+	<rv>0.04</rv>
+	<feed>0.0195</feed>
+	<k>0.066</k>
+	<lightPosition>512, 512, 100</lightPosition>
+	<bgColor>219, 167, 140, 255</bgColor>
+	<trunkColor>227, 195, 0, 255</trunkColor>
+	<material>41, 100, 140, 255</material>
+	<light>41, 100, 140, 255</light>
+	<pointColor>219, 167, 140, 255</pointColor>
+	<discardRed>0.25</discardRed>
+	<lightPower>0.5</lightPower>
+	<lightDistanceScalar>0.0015</lightDistanceScalar>
+	<displaceAmount>4</displaceAmount>
+	<useImage>1</useImage>
+	<useNormalMap>1</useNormalMap>
+	<passes>4</passes>
+	<radius>10</radius>
+<group/>
+</group>

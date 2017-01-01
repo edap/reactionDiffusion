@@ -5,14 +5,16 @@ Tree::Tree(){
 }
 
 void Tree::setup(int n_planes, int resolution, int width, int height, float deg, ofTexture texture, string objPath){
-    float foliageHeight = trunkHeight - startingFoliageHeight;
-    float distance = foliageHeight / float(n_planes);
+    scale = ofRandom(0.4, 1.0);
+    float foliageHeight = (trunkHeight - startingFoliageHeight) * scale;
+    int randomizedNPlanes = n_planes + abs(ofRandom(1, 3));
+    float distance = foliageHeight / float(randomizedNPlanes);
     float rot = 0;
-    for (uint i = 0; i < n_planes; i++) {
+    for (uint i = 0; i < randomizedNPlanes; i++) {
             auto p = ofPlanePrimitive(width, height, resolution, resolution, OF_PRIMITIVE_TRIANGLES);
 
             p.mapTexCoordsFromTexture(texture);
-            p.setPosition(ofRandom(20), ofRandom(20),float(distance*i + ofRandom(20)));
+            p.setPosition(ofRandom(10), ofRandom(10),float(distance*i + ofRandom(30)));
             p.roll(rot);
             //p.rollDeg(rot);
             auto mesh =p.getMesh();
@@ -55,16 +57,16 @@ void Tree::setup(int n_planes, int resolution, int width, int height, float deg,
         foliage.getMesh().append(p.getMesh());
     }
 
-    foliage.move(0, 0, startingFoliageHeight);
-    model.loadModel(objPath);
-
-    // you have to stop the rd before it becomes a plane
     position = ofVec2f(ofRandom(maxXandYposition), ofRandom(maxXandYposition));
-    //position = ofVec2f(0,0);
 
+    foliage.move(0, 0, startingFoliageHeight * scale);
+    foliage.move(position.x, position.y,0);
+
+    model.loadModel(objPath);
     trunk.getMesh() = model.getMesh(0);
     trunk.setPosition(position.x, position.y, 0);
-    foliage.move(position.x, position.y,0);
+    trunk.setScale(scale);
+    trunk.roll(ofRandom(180));
 }
 
 void Tree::draw(){
@@ -74,9 +76,4 @@ void Tree::draw(){
 void Tree::drawTrunk(){
     //model.drawFaces();
     trunk.draw();
-}
-
-void Tree::perturbatePlane(){
-
-
 }
