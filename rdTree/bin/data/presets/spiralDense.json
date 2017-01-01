@@ -3,6 +3,20 @@
     	"ru": "0.12",
     	"rv": "0.08",
         "feed": "0.020",
-        "k": "0.050"
+        "k": "0.050",
+        "lightPosition":"512, 512, 100",
+		"bgColor":"219, 167, 140, 255",
+		"trunkColor":"227, 195, 0, 255",
+		"material":"41, 100, 140, 255",
+		"light":"41, 100, 140, 255",
+		"pointColor":"219, 167, 140, 255",
+		"discardRed":"0.25",
+		"lightPower":"0.5",
+		"lightDistanceScalar":"0.0015",
+		"displaceAmount":"4",
+		"useImage":"1",
+		"useNormalMap":"1",
+		"passes":"4",
+		"radius":"10"
     }
 }
